@@ -43,7 +43,6 @@ Route::get('/guru/nilai', [GuruController::class, 'inputNilai']);
 Route::post('/guru/nilai', [GuruController::class, 'storeNilai'])->name('guru.nilai');
 // logout
 Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');
-
 //profile
 Route::get('/guru/profile', [GuruController::class, 'profile'])->name('guru.profile');
 Route::post('/guru/profile', [GuruController::class, 'storeProfile']);
