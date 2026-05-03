@@ -139,13 +139,13 @@
             Silakan daftar untuk mengakses sistem
         </div>
 
-        <a href="{{ route('register') }}">
+        <!-- <a href="{{ route('register') }}">
             <button class="btn btn-register">Daftar Akun Baru</button>
         </a>
 
         <div class="divider">
             <span>atau</span>
-        </div>
+        </div> -->
 
         <a href="{{ route('login') }}">
             <button class="btn btn-login">Login</button>

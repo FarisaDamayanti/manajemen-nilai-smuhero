@@ -317,6 +317,7 @@
             <a href="{{ route('admin.dashboard') }}">Home</a>
             <a href="{{ route('admin.guru') }}">Guru</a>
             <a href="{{ route('admin.kelas') }}" class="active">Kelas</a>
+            <a href="{{ route('admin.mapel') }}">Mapel</a>
         </div>
     </div>
 
@@ -332,7 +333,7 @@
     <div class="card">
         <div class="header-section">
             <h2>Data Kelas</h2>
-            <a href="{{ route('admin.kelas') }}" class="btn-primary">Tambah Kelas</a>
+            <a href="{{ route('kelas.create') }}" class="btn-primary">Tambah Kelas</a>
         </div>
 
         @forelse($kelas as $k)
@@ -343,19 +344,6 @@
                         <div class="stat-item">
                             <span class="stat-label">Jumlah Siswa:</span>
                             <span class="stat-value">{{ $k->siswa->count() }}</span>
-                        </div>
-                        @php
-                            // Hitung rata-rata kelas dari nilai_rata setiap siswa
-                            $totalNilai = 0;
-                            $siswaCount = $k->siswa->count();
-                            foreach($k->siswa as $siswa) {
-                                $totalNilai += ($siswa->nilai_rata ?? 0);
-                            }
-                            $rataKelas = $siswaCount > 0 ? $totalNilai / $siswaCount : 0;
-                        @endphp
-                        <div class="stat-item">
-                            <span class="stat-label">Rata-rata Kelas:</span>
-                            <span class="stat-value">{{ number_format($rataKelas, 2) }}</span>
                         </div>
                     </div>
                 </div>

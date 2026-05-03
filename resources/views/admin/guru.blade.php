@@ -323,6 +323,7 @@
             <a href="{{ route('admin.dashboard') }}">Home</a>
             <a href="{{ route('admin.guru') }}" class="active">Guru</a>
             <a href="{{ route('admin.kelas') }}">Kelas</a>
+            <a href="{{ route('admin.mapel') }}">Mapel</a>
         </div>
     </div>
 
@@ -338,7 +339,7 @@
     <div class="card">
         <div class="header-section">
             <h2>Data Guru</h2>
-            <a href="{{ route('admin.guru') }}" class="btn-primary">Tambah Guru</a>
+            <a href="{{ route('guru.create') }}" class="btn-primary">Tambah Guru</a>
         </div>
 
         <div class="stats">
@@ -355,7 +356,6 @@
                         <th>Nama Guru</th>
                         <th>NIP</th>
                         <th>Mata Pelajaran</th>
-                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>

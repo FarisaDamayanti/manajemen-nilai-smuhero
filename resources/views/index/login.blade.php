@@ -194,9 +194,9 @@
         </div>
     @endif
 
-    <div class="register-link">
+    <!-- <div class="register-link">
         Belum punya akun? <a href="{{ route('register') }}">Daftar sekarang</a>
-    </div>
+    </div> -->
 </div>
 
 </body>

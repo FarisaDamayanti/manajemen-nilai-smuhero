@@ -20,7 +20,7 @@ class Guru extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_user');
+        return $this->belongsTo(User::class, 'id_user'); //guru hanya memiliki 1 user
     }
 
     public function mapel()
@@ -30,6 +30,11 @@ class Guru extends Model
 
     public function nilai()
     {
-        return $this->hasMany(Nilai::class, 'id_guru');
+        return $this->hasMany(Nilai::class, 'id_guru'); //guru punya banyak nilai
+    }
+
+    public function kelas()
+    {
+        return $this->belongsToMany(Kelas::class, 'guru_kelas', 'id_guru', 'id_kelas');
     }
 }

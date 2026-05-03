@@ -176,7 +176,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('siswaStore') }}">
+        <form method="POST" action="{{ route('siswa.store') }}">
             @csrf
 
             <div class="form-group">

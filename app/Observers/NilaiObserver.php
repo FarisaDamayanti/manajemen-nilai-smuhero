@@ -10,15 +10,15 @@ class NilaiObserver
     /**
      * Handle the Nilai "created" event.
      */
-    public function saved(Nilai $nilai): void
+    public function saved(Nilai $nilai): void //sudah mencakup create dan update
     {
-        $this->updated($nilai->id_siswa);
+        $this->rata($nilai->id_siswa);
     }
 
     /**
-     * Handle the Nilai "updated" event.
+     * Handle the Nilai "rata" event.
      */
-    public function updated($id_siswa): void
+    public function rata($id_siswa): void
     {
         $rata = Nilai::where('id_siswa', $id_siswa)->avg('nilai');
 
@@ -32,7 +32,7 @@ class NilaiObserver
      */
     public function deleted(Nilai $nilai): void
     {
-        $this->updated($nilai->id_siswa);
+        $this->rata($nilai->id_siswa);
     }
 
     /**

@@ -319,7 +319,7 @@
 </head>
 <body>
 
-<div class="navbar">
+<!-- <div class="navbar">
     <div class="nav-left">
         <div class="logo">
             <div class="logo-icon">G</div>
@@ -339,9 +339,10 @@
             <button type="submit">Logout</button>
         </form>
     </div>
-</div>
+</div> -->
 
-<div class="container">
+<div class="container">    
+
     <div class="card">
         <h2>Input Nilai Siswa</h2>
         <div class="subtitle">
@@ -376,20 +377,12 @@
 
         <form method="POST" action="{{ route('guru.nilai') }}">
             @csrf
+            
+             <input type="hidden" name="id_siswa" value="{{ $siswa->id }}">
 
-            <div class="form-group">
+            <div>
                 <label>Nama Siswa</label>
-                <select name="id_siswa" required>
-                    <option value="">-- Pilih Siswa --</option>
-                    @foreach($siswa as $s)
-                        <option value="{{ $s->id }}" {{ old('id_siswa') == $s->id ? 'selected' : '' }}>
-                            {{ $s->nama_siswa }} - {{ $s->kelas->nama_kelas ?? 'Kelas' }}
-                        </option>
-                    @endforeach
-                </select>
-                @error('id_siswa')
-                    <div class="error-text">{{ $message }}</div>
-                @enderror
+                <input type="text" value="{{ $siswa->nama_siswa }}" readonly>
             </div>
 
             <div class="form-group">

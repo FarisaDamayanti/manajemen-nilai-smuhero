@@ -17,16 +17,16 @@ class GuruController extends Controller
     {
         $guru = Auth::user()->guru;
 
-        // cek apakah belum ada atau belum lengkap
         if (!$guru || !$guru->nama_lengkap || !$guru->nip) {
             return redirect()->route('guru.profile')
                 ->with('error', 'Silakan lengkapi profil terlebih dahulu!');
         }
 
-          // ambil kelas + siswa
-        $kelas = Kelas::with('siswa')->get();
+        // ambil kelas yang diajar guru
+        $kelas = Kelas::whereHas('guru', function ($q) use ($guru) {
+            $q->where('id_guru', $guru->id);
+        })->with('siswa')->get();
 
-        // ambil nilai sesuai mapel guru
         $nilai = Nilai::where('id_mapel', $guru->id_mapel)
             ->get()
             ->keyBy('id_siswa');
@@ -40,7 +40,7 @@ class GuruController extends Controller
         $guru = Auth::user()->guru;
         $mapels = Mapel::all(); // ambil semua mapel
 
-        return view('guru.profile', compact('guru', 'mapels'));
+        return view('guru/profile', compact('guru', 'mapels'));
     }
 
     // simpan / update profile
@@ -69,13 +69,13 @@ class GuruController extends Controller
             ->with('success', 'Profil berhasil disimpan!');
     }  
     
-    public function inputNilai()
+    public function inputNilai($id_siswa)
     {
         $guru = Auth::user()->guru;
 
-        $siswa = Siswa::all(); // semua siswa dari admin
+        $siswa = Siswa::findOrFail($id_siswa);
 
-        return view('guru.nilai', compact('siswa', 'guru'));
+        return view('guru/nilai', compact('siswa', 'guru'));
     }
 
     public function storeNilai(Request $request)
@@ -99,6 +99,53 @@ class GuruController extends Controller
         );
 
         return redirect('/guru/dashboard')
-            ->with('success', 'Siswa berhasil ditambah');
+            ->with('success', 'Nilai berhasil ditambah');
     }
+
+    public function lihatKelas(Request $request, $id)
+{
+    $guru = Auth::user()->guru;
+
+    $kelas = Kelas::with('siswa')->findOrFail($id);
+
+    $filter = $request->filter;
+
+    $nilai = Nilai::where('id_mapel', $guru->id_mapel)
+        ->get()
+        ->keyBy('id_siswa');
+
+    $siswa = $kelas->siswa;
+
+    // FILTER LOGIC
+    if ($filter == 'sudah') {
+        $siswa = $siswa->filter(fn($s) => isset($nilai[$s->id]));
+    } elseif ($filter == 'belum') {
+        $siswa = $siswa->filter(fn($s) => !isset($nilai[$s->id]));
+    }
+
+    return view('guru.kelas', compact('kelas', 'guru', 'nilai', 'siswa', 'filter'));
+}
+
+    // public function sudahDinilai()
+    // {
+    //     $guru = Auth::user()->guru;
+
+    //     $nilai = Nilai::where('id_mapel', $guru->id_mapel)
+    //         ->with('siswa')
+    //         ->get();
+
+    //     return view('guru.nilai_sudah', compact('nilai'));
+    // }
+
+    // public function belumDinilai()
+    // {
+    //     $guru = Auth::user()->guru;
+
+    //     $sudah = Nilai::where('id_mapel', $guru->id_mapel)
+    //         ->pluck('id_siswa');
+
+    //     $belum = Siswa::whereNotIn('id', $sudah)->get();
+
+    //     return view('guru.nilai_belum', compact('belum'));
+    // }
 }

@@ -281,6 +281,7 @@
             <a href="{{ route('admin.dashboard') }}" class="active">Home</a>
             <a href="{{ route('admin.guru') }}">Guru</a>
             <a href="{{ route('admin.kelas') }}">Kelas</a>
+            <a href="{{ route('admin.mapel') }}">Mapel</a>
         </div>
     </div>
 
@@ -306,7 +307,7 @@
     <div class="card">
         <div class="header-section">
             <h3>Kelola Siswa</h3>
-            <a href="{{ route('siswaCreate') }}" class="btn-primary">Tambah Siswa</a>
+            <a href="{{ route('siswa.create') }}" class="btn-primary">Tambah Siswa</a>
         </div>
     </div>
 

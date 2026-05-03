@@ -308,6 +308,65 @@
                 padding: 8px 12px;
             }
         }
+
+        .kelas-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .kelas-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 16px;
+            transition: 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .kelas-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .kelas-card h4 {
+            margin-bottom: 10px;
+            border: none;
+            padding: 0;
+            background: none;
+        }
+
+        .kelas-card .info p {
+            font-size: 0.85rem;
+            color: #475569;
+            margin-bottom: 4px;
+        }
+
+        .progress {
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 50px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .progress .bar {
+            height: 100%;
+            background: #3b82f6;
+            border-radius: 50px;
+        }
+
+        .btn-mini {
+            display: inline-block;
+            font-size: 0.8rem;
+            padding: 6px 10px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-top: 8px;
+        }
     </style>
 </head>
 <body>
@@ -321,7 +380,9 @@
 
         <div class="nav-links">
             <a href="{{ route('guru.dashboard') }}" class="active">Dashboard</a>
-            <a href="{{ route('guru.nilai') }}">Input Nilai</a>
+            <!-- <a href="{{ route('guru.nilai') }}">Input Nilai</a> -->
+            <!-- <a href="{{ route('guru.sudah') }}">Sudah Dinilai</a>
+            <a href="{{ route('guru.belum') }}">Belum Dinilai</a> -->
         </div>
     </div>
 
@@ -349,92 +410,44 @@
         </p>
     </div>
 
-    <!-- Tombol Tambah Nilai -->
+    <!-- Tombol Tambah Nilai
     <div class="card">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
             <h3 style="margin-bottom: 0; border-left: none; padding-left: 0;">Kelola Nilai</h3>
             <a href="{{ route('guru.nilai') }}" class="btn-primary">Tambah Nilai</a>
         </div>
-    </div>
+    </div> -->
 
-    <!-- Data Nilai per Kelas -->
     <div class="card">
-        <h3>Data Nilai per Kelas</h3>
+    <h3>Kelas Saya</h3>
 
-        @php
-            $totalSiswa = 0;
-            $totalNilaiTerisi = 0;
-        @endphp
-
+    <div class="kelas-grid">
         @foreach($kelas as $k)
             @php
-                $siswaCount = $k->siswa->count();
-                $nilaiTerisi = $k->siswa->filter(function($s) use ($nilai) {
+                $totalSiswa = $k->siswa->count();
+                $nilaiMasuk = $k->siswa->filter(function($s) use ($nilai) {
                     return isset($nilai[$s->id]) && !is_null($nilai[$s->id]->nilai);
                 })->count();
-                $totalSiswa += $siswaCount;
-                $totalNilaiTerisi += $nilaiTerisi;
             @endphp
 
-            <div class="stats" style="margin-bottom: 8px;">
-                <div class="stat-card">
-                    <div class="stat-number">{{ $siswaCount }}</div>
-                    <div class="stat-label">Total Siswa</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">{{ $nilaiTerisi }}</div>
-                    <div class="stat-label">Nilai Terisi</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">{{ $siswaCount - $nilaiTerisi }}</div>
-                    <div class="stat-label">Belum Diisi</div>
-                </div>
-            </div>
+            <div class="kelas-card">
+                <h4>{{ $k->nama_kelas }}</h4>
 
-            <h4>{{ $k->nama_kelas }}</h4>
+                <div class="info">
+                    <p><b>{{ $totalSiswa }}</b> Siswa</p>
+                    <p><b>{{ $nilaiMasuk }}</b> Nilai Terisi</p>
+                </div>
 
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nama Siswa</th>
-                            <th>NIS</th>
-                            <th>Nilai</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($k->siswa as $s)
-                        <tr>
-                            <td>{{ $s->nama_siswa }}</td>
-                            <td>{{ $s->nis }}</td>
-                            <td class="nilai-cell">
-                                @php
-                                    $nilaiSiswa = $nilai[$s->id]->nilai ?? null;
-                                @endphp
-                                @if($nilaiSiswa)
-                                    <span>{{ number_format($nilaiSiswa, 2) }}</span>
-                                @else
-                                    <span style="background: #fef3c7; color: #d97706;">Belum diisi</span>
-                                @endif
-                            </td>
-                        </tr>
-                        @empty
-                        <tr class="empty-row">
-                            <td colspan="3">Belum ada siswa di kelas ini</td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                <div class="progress">
+                    <div class="bar"
+                        style="width: {{ $totalSiswa > 0 ? ($nilaiMasuk / $totalSiswa) * 100 : 0 }}%;">
+                    </div>
+                </div>
+
+                <a href="{{ route('guru.kelas.lihat', $k->id) }}" class="btn-mini">Lihat Kelas</a>
             </div>
         @endforeach
-
-        @if($kelas->count() == 0)
-            <div class="empty-row" style="text-align: center; padding: 40px; color: #94a3b8;">
-                Belum ada kelas yang diampu
-            </div>
-        @endif
     </div>
-</div>
 
 </body>
 </html>
