@@ -14,25 +14,43 @@ class GuruController extends Controller
 {
     // dashboard guru
     public function index()
-    {
-        $guru = Auth::user()->guru;
-
-        if (!$guru || !$guru->nama_lengkap || !$guru->nip) {
-            return redirect()->route('guru.profile')
-                ->with('error', 'Silakan lengkapi profil terlebih dahulu!');
-        }
-
-        // ambil kelas yang diajar guru
-        $kelas = Kelas::whereHas('guru', function ($q) use ($guru) {
-            $q->where('id_guru', $guru->id);
-        })->with('siswa')->get();
-
-        $nilai = Nilai::where('id_mapel', $guru->id_mapel)
-            ->get()
-            ->keyBy('id_siswa');
-
-        return view('guru.dashboard', compact('guru', 'kelas', 'nilai'));
-    }
+{
+    // Ambil data guru yang sedang login
+    $guru = auth()->user()->guru;
+    
+    // Ambil kelas yang diampu oleh guru ini
+    $kelas = $guru->kelas; // atau sesuai relasi Anda
+    
+    // Ambil semua nilai untuk mata pelajaran guru ini
+    $nilai = Nilai::where('id_mapel', $guru->id_mapel)->get()->keyBy('id_siswa');
+    
+    // Hitung total siswa dari semua kelas yang diampu
+    $totalSiswa = $kelas->sum(function($k) {
+        return $k->siswa->count();
+    });
+    
+    // Hitung nilai yang sudah masuk
+    $nilaiMasuk = $nilai->filter(function($n) {
+        return !is_null($n->nilai);
+    })->count();
+    
+    // Hitung rata-rata keseluruhan
+    $rataRataKeseluruhan = $nilai->avg('nilai') ?? 0;
+    
+    // Nilai tertinggi dan terendah
+    $nilaiTertinggi = $nilai->max('nilai') ?? 0;
+    $nilaiTerendah = $nilai->min('nilai') ?? 0;
+    
+    return view('guru.dashboard', [
+        'kelas' => $kelas,
+        'nilai' => $nilai,
+        'totalSiswa' => $totalSiswa,
+        'nilaiMasuk' => $nilaiMasuk,
+        'rataRataKeseluruhan' => $rataRataKeseluruhan,
+        'nilaiTertinggi' => $nilaiTertinggi,
+        'nilaiTerendah' => $nilaiTerendah,
+    ]);
+}
 
     // form isi profile
     public function profile()
@@ -102,6 +120,16 @@ class GuruController extends Controller
             ->with('success', 'Nilai berhasil ditambah');
     }
 
+    public function kelas()
+    {
+        $kelas = Kelas::all();
+        $guru = Auth::user()->guru;
+        $nilai = Nilai::where('id_mapel', $guru->id_mapel)
+        ->get()
+        ->keyBy('id_siswa');
+        return view('guru.kelas', compact('kelas', 'guru', 'nilai'));
+    }
+
     public function lihatKelas(Request $request, $id)
 {
     $guru = Auth::user()->guru;
@@ -123,29 +151,6 @@ class GuruController extends Controller
         $siswa = $siswa->filter(fn($s) => !isset($nilai[$s->id]));
     }
 
-    return view('guru.kelas', compact('kelas', 'guru', 'nilai', 'siswa', 'filter'));
+    return view('guru.kelas_detail', compact('kelas', 'guru', 'nilai', 'siswa', 'filter'));
 }
-
-    // public function sudahDinilai()
-    // {
-    //     $guru = Auth::user()->guru;
-
-    //     $nilai = Nilai::where('id_mapel', $guru->id_mapel)
-    //         ->with('siswa')
-    //         ->get();
-
-    //     return view('guru.nilai_sudah', compact('nilai'));
-    // }
-
-    // public function belumDinilai()
-    // {
-    //     $guru = Auth::user()->guru;
-
-    //     $sudah = Nilai::where('id_mapel', $guru->id_mapel)
-    //         ->pluck('id_siswa');
-
-    //     $belum = Siswa::whereNotIn('id', $sudah)->get();
-
-    //     return view('guru.nilai_belum', compact('belum'));
-    // }
 }

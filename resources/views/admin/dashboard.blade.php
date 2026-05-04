@@ -98,6 +98,25 @@
             gap: 20px;
         }
 
+        .btn-back {
+            background: #64748b;
+            color: white;
+            padding: 6px 16px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-back:hover {
+            background: #475569;
+            transform: translateY(-1px);
+        }
+
         .logout-form button {
             background: rgba(239, 68, 68, 0.85);
             color: white;
@@ -181,55 +200,6 @@
             box-shadow: 0 5px 12px rgba(59, 130, 246, 0.3);
         }
 
-        /* Tabel */
-        .table-wrapper {
-            overflow-x: auto;
-            border-radius: 12px;
-            margin-top: 12px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-        }
-
-        th {
-            background: #f8fafc;
-            text-align: left;
-            padding: 14px 16px;
-            font-weight: 600;
-            color: #1e293b;
-            border-bottom: 2px solid #e2e8f0;
-        }
-
-        td {
-            padding: 12px 16px;
-            border-bottom: 1px solid #f0f2f5;
-            color: #334155;
-        }
-
-        tr:hover td {
-            background-color: #fafcff;
-        }
-
-        .empty-row td {
-            text-align: center;
-            color: #94a3b8;
-            padding: 32px;
-            font-style: italic;
-        }
-
-        .nilai-badge {
-            background: #f1f5f9;
-            padding: 4px 10px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            display: inline-block;
-            color: #0f172a;
-        }
-
         /* Header section untuk flex antara judul dan tombol */
         .header-section {
             display: flex;
@@ -237,9 +207,111 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        /* Statistik Section */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            transition: 0.2s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #3b82f6;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .stat-detail {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        /* Statistik ringkasan global */
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+
+        .summary-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            border: 1px solid #eef2ff;
+            transition: 0.2s;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .summary-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .summary-label {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 6px;
+        }
+
+        .summary-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        /* Detail info dalam card */
+        .card-content {
+            margin-top: 8px;
         }
 
         /* responsif */
+        @media (max-width: 900px) {
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            .summary-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+        }
+
         @media (max-width: 700px) {
             .navbar {
                 padding: 0 20px;
@@ -258,12 +330,15 @@
             .card {
                 padding: 18px;
             }
-            th, td {
-                padding: 10px 12px;
-            }
             .header-section {
                 flex-direction: column;
                 align-items: flex-start;
+            }
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            .summary-stats {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -279,9 +354,9 @@
 
         <div class="nav-links">
             <a href="{{ route('admin.dashboard') }}" class="active">Home</a>
-            <a href="{{ route('admin.guru') }}">Guru</a>
             <a href="{{ route('admin.kelas') }}">Kelas</a>
             <a href="{{ route('admin.mapel') }}">Mapel</a>
+            <a href="{{ route('admin.guru') }}">Guru</a>
         </div>
     </div>
 
@@ -300,50 +375,107 @@
         <div class="role-badge">
             {{ ucfirst(auth()->user()->role) }}
         </div>
-        <p style="margin-top: 12px; color: #475569;">Anda memiliki akses penuh untuk mengelola data siswa, guru, dan kelas.</p>
+        <p style="margin-top: 12px; color: #475569;">Anda memiliki akses penuh untuk mengelola data siswa, guru, mata pelajaran, dan kelas.</p>
     </div>
 
-    {{-- Menu Admin - Tambah Siswa (sama seperti guru) --}}
+    {{-- Statistik Ringkasan Global --}}
+    <div class="summary-stats">
+        <div class="summary-card">
+            <div class="summary-icon">📚</div>
+            <div class="summary-number">{{ $totalKelas ?? $kelas->count() ?? 0 }}</div>
+            <div class="summary-label">Total Kelas</div>
+        </div>
+        <div class="summary-card">
+            <div class="summary-icon">👨‍🏫</div>
+            <div class="summary-number">{{ $totalGuru ?? $guru->count() ?? 0 }}</div>
+            <div class="summary-label">Total Guru</div>
+        </div>
+        <div class="summary-card">
+            <div class="summary-icon">📖</div>
+            <div class="summary-number">{{ $totalMapel ?? $mapel->count() ?? 0 }}</div>
+            <div class="summary-label">Total Mata Pelajaran</div>
+        </div>
+        <div class="summary-card">
+            <div class="summary-icon">👨‍🎓</div>
+            <div class="summary-number">{{ $totalSiswa ?? $siswa->count() ?? 0 }}</div>
+            <div class="summary-label">Total Siswa</div>
+        </div>
+    </div>
+
+    {{-- Kelola Kelas dengan Statistik --}}
     <div class="card">
         <div class="header-section">
-            <h3>Kelola Siswa</h3>
-            <a href="{{ route('siswa.create') }}" class="btn-primary">Tambah Siswa</a>
+            <h3>📚 Data Kelas</h3>
+            <a href="{{ route('admin.kelas') }}" class="btn-primary">Kelola Daftar Kelas</a>
+        </div>
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number">{{ $kelas->count() ?? 0 }}</div>
+                <div class="stat-label">Total Kelas</div>
+                <div class="stat-detail">Semua kelas yang tersedia</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ $kelas->sum(function($k) { return $k->siswa->count(); }) ?? 0 }}</div>
+                <div class="stat-label">Total Siswa</div>
+                <div class="stat-detail">Terdaftar di semua kelas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ number_format($kelas->avg(function($k) { return $k->siswa->count(); }) ?? 0, 1) }}</div>
+                <div class="stat-label">Rata-rata/kelas</div>
+                <div class="stat-detail">Siswa per kelas</div>
+            </div>
         </div>
     </div>
 
-    {{-- LOOP KELAS --}}
-    @foreach($kelas as $k)
+    {{-- Kelola Guru dengan Statistik --}}
     <div class="card">
-        <h3 style="border-left: 4px solid #3b82f6; padding-left: 14px; margin-bottom: 18px;">{{ $k->nama_kelas }}</h3>
-
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nama Siswa</th>
-                        <th>NIS</th>
-                        <th>Rata-rata</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($k->siswa as $s)
-                    <tr>
-                        <td>{{ $s->nama_siswa }}</td>
-                        <td>{{ $s->nis }}</td>
-                        <td>
-                            <span class="nilai-badge">{{ number_format($s->nilai_rata ?? 0, 2) }}</span>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr class="empty-row">
-                        <td colspan="3">Belum ada siswa</td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
+        <div class="header-section">
+            <h3>👨‍🏫 Data Guru</h3>
+            <a href="{{ route('admin.guru') }}" class="btn-primary">Kelola Daftar Guru</a>
+        </div>
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number">{{ $guru->count() ?? 0 }}</div>
+                <div class="stat-label">Total Guru</div>
+                <div class="stat-detail">Semua guru terdaftar</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ $guru->filter(function($g) { return $g->kelas->count() > 0; })->count() ?? 0 }}</div>
+                <div class="stat-label">Guru Aktif</div>
+                <div class="stat-detail">Memiliki kelas mengajar</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ number_format($guru->avg(function($g) { return $g->kelas->count(); }) ?? 0, 1) }}</div>
+                <div class="stat-label">Rata-rata Kelas/Guru</div>
+                <div class="stat-detail">Beban mengajar</div>
+            </div>
         </div>
     </div>
-    @endforeach
+
+    {{-- Kelola Mapel dengan Statistik --}}
+    <div class="card">
+        <div class="header-section">
+            <h3>📖 Data Mapel</h3>
+            <a href="{{ route('admin.mapel') }}" class="btn-primary">Kelola Daftar Mapel</a>
+        </div>
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number">{{ $mapel->count() ?? 0 }}</div>
+                <div class="stat-label">Total Mapel</div>
+                <div class="stat-detail">Semua mata pelajaran</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ $mapel->filter(fn($m) => ($m->gurus?->count() ?? 0) > 0)->count() }}</div>
+                <div class="stat-label">Mapel dengan Guru</div>
+                <div class="stat-detail">Sudah memiliki pengajar</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ $mapel->filter(fn($m) => ($m->gurus?->count() ?? 0) == 0)->count() }}</div>
+                <div class="stat-label">Mapel Tanpa Guru</div>
+                <div class="stat-detail">Perlu ditugaskan</div>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>

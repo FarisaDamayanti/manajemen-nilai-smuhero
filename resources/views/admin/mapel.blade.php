@@ -155,6 +155,37 @@
             background: #2563eb;
         }
 
+        /* Footer button */
+        .footer-buttons {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: flex-end; /* Memaksa elemen flex ke kanan */
+        }
+
+        .footer-buttons .btn-back {
+            display: inline-flex; /* Pastikan tombol tetap inline-flex */
+        }
+        .btn-back {
+            background: #64748b;
+            color: white;
+            padding: 6px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-back:hover {
+            background: #475569;
+            transform: translateY(-1px);
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -196,9 +227,9 @@
 
         <div class="nav-links">
             <a href="{{ route('admin.dashboard') }}">Home</a>
-            <a href="{{ route('admin.guru') }}">Guru</a>
             <a href="{{ route('admin.kelas') }}">Kelas</a>
             <a href="{{ route('admin.mapel') }}" class="active">Mapel</a>
+            <a href="{{ route('admin.guru') }}">Guru</a>
         </div>
     </div>
 
@@ -213,7 +244,7 @@
 <!-- CONTENT -->
 <div class="container">
     <div class="card">
-
+        
         <h2>Data Mata Pelajaran</h2>
 
         <!-- tombol tambah -->
@@ -241,6 +272,12 @@
             </tbody>
         </table>
 
+        <!-- Tombol Kembali di sini (di bawah tabel) -->
+        <div class="footer-buttons">
+            <a href="{{ route('admin.dashboard') }}" class="btn-back">
+                Kembali
+            </a>
+        </div>
     </div>
 </div>
 

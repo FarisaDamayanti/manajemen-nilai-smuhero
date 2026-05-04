@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Kelas - Guru</title>
+    <title>Dashboard Guru - Manajemen Sekolah</title>
 
     <style>
         * {
@@ -16,9 +16,10 @@
             font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
             background: #f1f5f9;
             color: #0f172a;
+            line-height: 1.5;
         }
 
-       /* Navbar */
+        /* Navbar */
         .navbar {
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             color: white;
@@ -118,102 +119,213 @@
             background: #ef4444;
         }
 
-        /* CONTAINER */
+        /* Container */
         .container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
+            max-width: 1400px;
+            margin: 28px auto;
+            padding: 0 24px;
         }
 
+        /* Card */
         .card {
             background: white;
-            padding: 24px;
             border-radius: 16px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid #eef2ff;
         }
 
         h2 {
-            margin-bottom: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .role-badge {
+            display: inline-block;
+            background: #eef2ff;
+            color: #1e40af;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .mapel-badge {
+            display: inline-block;
+            background: #fef3c7;
+            color: #d97706;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 8px;
         }
 
         h3 {
-            margin-bottom: 16px;
-            color: #334155;
-        }
-
-        /* TABLE */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th {
-            background: #f8fafc;
-            padding: 12px;
-            text-align: left;
-        }
-
-        td {
-            padding: 10px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        tr:hover {
-            background: #f9fafb;
-        }
-
-        .nilai-badge {
-            background: #e0f2fe;
-            color: #0369a1;
-            padding: 4px 10px;
-            border-radius: 20px;
+            font-size: 1.3rem;
             font-weight: 600;
-            font-size: 0.85rem;
+            margin-bottom: 20px;
+            color: #0f172a;
+            border-left: 4px solid #3b82f6;
+            padding-left: 14px;
         }
 
-        .empty {
-            text-align: center;
-            padding: 20px;
-            color: #94a3b8;
-        }
-
-        /* PROGRESS */
-        .progress {
-            height: 8px;
-            background: #e2e8f0;
-            border-radius: 20px;
-            margin-top: 10px;
-            overflow: hidden;
-        }
-
-        .bar {
-            height: 100%;
-            background: #3b82f6;
-        }
-
-        /* kembali */
-        .btn-back {
-            display: inline-block;
-            margin-bottom: 16px;
-            background: #e2e8f0;
+        h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
             color: #1e293b;
-            padding: 8px 14px;
+        }
+
+        /* Button Kembali */
+        .btn-back {
+            background: #64748b;
+            color: white;
+            padding: 8px 18px;
             border-radius: 8px;
             text-decoration: none;
-            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
             font-weight: 500;
-            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
         }
 
         .btn-back:hover {
-            background: #cbd5f5;
+            background: #475569;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(71, 85, 105, 0.2);
+        }
+
+        /* Kelas Grid */
+        .kelas-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 16px;
+        }
+
+        .kelas-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 18px;
+            transition: 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .kelas-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-color: #cbd5e1;
+        }
+
+        .kelas-card .info p {
+            font-size: 0.85rem;
+            color: #475569;
+            margin-bottom: 6px;
+        }
+
+        .progress {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 50px;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+
+        .progress .bar {
+            height: 100%;
+            background: #3b82f6;
+            border-radius: 50px;
+            transition: width 0.3s ease;
+        }
+
+        .btn-mini {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 6px 14px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-top: 10px;
+            transition: 0.2s;
+            font-weight: 500;
+        }
+
+        .btn-mini:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        .empty-row {
+            text-align: center;
+            color: #94a3b8;
+            padding: 40px;
+            font-style: italic;
+            background: #f8fafc;
+            border-radius: 12px;
+            grid-column: 1/-1;
+        }
+
+        /* Footer buttons */
+        .footer-buttons {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* Responsif */
+        @media (max-width: 900px) {
+            .kelas-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .navbar {
+                padding: 0 20px;
+                flex-wrap: wrap;
+                height: auto;
+                padding: 12px 20px;
+                gap: 10px;
+            }
+            .nav-left {
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+            .container {
+                padding: 0 16px;
+            }
+            .card {
+                padding: 18px;
+            }
+            .kelas-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-buttons {
+                justify-content: stretch;
+            }
+            .footer-buttons .btn-back {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
 
-<!-- NAVBAR
 <div class="navbar">
     <div class="nav-left">
         <div class="logo">
@@ -222,10 +334,8 @@
         </div>
 
         <div class="nav-links">
-            <a href="{{ route('guru.dashboard') }}" class="active">Dashboard</a>
-            <a href="{{ route('guru.nilai') }}">Input Nilai</a>
-            <a href="{{ route('guru.sudah') }}">Sudah Dinilai</a>
-            <a href="{{ route('guru.belum') }}">Belum Dinilai</a>
+            <a href="{{ route('guru.dashboard') }}">Dashboard</a>
+            <a href="{{ route('guru.kelas') }}" class="active">Kelas</a>
         </div>
     </div>
 
@@ -236,146 +346,68 @@
             <button type="submit">Logout</button>
         </form>
     </div>
-</div> -->
+</div>
 
-<!-- CONTENT -->
 <div class="container">
-
-    <!-- INFO KELAS -->
+    <!-- Daftar Kelas -->
     <div class="card">
-        <h2>📘 Detail Kelas: {{ $kelas->nama_kelas }}</h2>
-
+        <h3>🏫 Kelas Saya</h3>
+        
         @php
-            $total = $kelas->siswa->count();
-            $terisi = $kelas->siswa->filter(fn($s) => isset($nilai[$s->id]))->count();
-            $persen = $total > 0 ? ($terisi / $total) * 100 : 0;
+            $totalSiswaAll = 0;
+            $totalNilaiMasuk = 0;
         @endphp
 
-        <p>{{ $terisi }} / {{ $total }} siswa sudah dinilai</p>
+        <div class="kelas-grid">
+            @forelse($kelas as $k)
+                @php
+                    $totalSiswaKelas = $k->siswa->count();
+                    $totalSiswaAll += $totalSiswaKelas;
+                    
+                    $nilaiMasukKelas = $k->siswa->filter(function($s) use ($nilai) {
+                        return isset($nilai[$s->id]) && !is_null($nilai[$s->id]->nilai);
+                    })->count();
+                    $totalNilaiMasuk += $nilaiMasukKelas;
+                    
+                    $persentase = $totalSiswaKelas > 0 ? ($nilaiMasukKelas / $totalSiswaKelas) * 100 : 0;
+                    
+                    $rataKelas = $k->siswa->avg(function($s) use ($nilai) {
+                        return isset($nilai[$s->id]) && !is_null($nilai[$s->id]->nilai) ? $nilai[$s->id]->nilai : null;
+                    }) ?? 0;
+                @endphp
 
-        <div class="progress">
-            <div class="bar" style="width: {{ $persen }}%"></div>
+                <div class="kelas-card">
+                    <h4>{{ $k->nama_kelas }}</h4>
+                    
+                    <div class="info">
+                        <p>👨‍🎓 <b>{{ $totalSiswaKelas }}</b> Siswa</p>
+                        <p>📝 <b>{{ $nilaiMasukKelas }}</b> Nilai Terisi</p>
+                        <p>⭐ Rata-rata: <b>{{ number_format($rataKelas, 1) }}</b></p>
+                    </div>
+
+                    <div class="progress">
+                        <div class="bar" style="width: {{ $persentase }}%;"></div>
+                    </div>
+                    <div style="font-size: 0.7rem; color: #64748b; text-align: right; margin-top: 4px;">
+                        {{ number_format($persentase, 0) }}% terisi
+                    </div>
+
+                    <a href="{{ route('guru.kelas.lihat', $k->id) }}" class="btn-mini">Kelola Nilai</a>
+                </div>
+            @empty
+                <div class="empty-row">
+                    Belum ada kelas yang diampu
+                </div>
+            @endforelse
+        </div>
+
+        <!-- Tombol Kembali -->
+        <div class="footer-buttons">
+            <a href="{{ route('guru.dashboard') }}" class="btn-back">
+                Kembali
+            </a>
         </div>
     </div>
-
-    <!-- TABEL SISWA -->
-    <div class="card">
-    <h3>Daftar Siswa</h3>
-
-    <div style="display:flex; gap:10px; margin-bottom:15px;">
-
-    <a href="{{ request()->fullUrlWithQuery(['filter' => null]) }}"
-       style="padding:6px 12px; border-radius:6px;
-       background: {{ request('filter') == null ? '#3b82f6' : '#e2e8f0' }};
-       color: {{ request('filter') == null ? 'white' : '#1e293b' }};
-       text-decoration:none;">
-        Semua
-    </a>
-
-    <a href="{{ request()->fullUrlWithQuery(['filter' => 'sudah']) }}"
-       style="padding:6px 12px; border-radius:6px;
-       background: {{ request('filter') == 'sudah' ? '#16a34a' : '#e2e8f0' }};
-       color: {{ request('filter') == 'sudah' ? 'white' : '#1e293b' }};
-       text-decoration:none;">
-        Sudah
-    </a>
-
-    <a href="{{ request()->fullUrlWithQuery(['filter' => 'belum']) }}"
-       style="padding:6px 12px; border-radius:6px;
-       background: {{ request('filter') == 'belum' ? '#dc2626' : '#e2e8f0' }};
-       color: {{ request('filter') == 'belum' ? 'white' : '#1e293b' }};
-       text-decoration:none;">
-        Belum
-    </a>
-
-</div>
-
-    <table>
-        <tr>
-            <th>No</th>
-            <th>NIS</th>
-            <th>Nama</th>
-            <th>Nilai</th>
-            <th>Status</th>
-            <th>Aksi</th>
-        </tr>
-
-        @forelse ($siswa as $s)
-        <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $s->nis }}</td>
-            <td>{{ $s->nama_siswa }}</td>
-
-            <!-- NILAI -->
-            @php $kkm = 75; @endphp
-
-<td>
-    @if(isset($nilai[$s->id]))
-        @php $n = $nilai[$s->id]->nilai; @endphp
-
-        @if($n >= $kkm)
-            <span class="nilai-badge" style="background:#dcfce7; color:#166534;">
-                {{ $n }}
-            </span>
-        @else
-            <span class="nilai-badge" style="background:#fee2e2; color:#991b1b;">
-                {{ $n }}
-            </span>
-        @endif
-    @else
-        
-    @endif
-</td>
-
-            <!-- STATUS -->
-            <td>
-    @if(isset($nilai[$s->id]))
-        @php $n = $nilai[$s->id]->nilai; @endphp
-
-        @if($n >= $kkm)
-            <span class="nilai-badge" style="background:#dcfce7; color:#166534;">
-                Lulus
-            </span>
-        @else
-            <span class="nilai-badge" style="background:#fee2e2; color:#991b1b;">
-                Remedial
-            </span>
-        @endif
-    @else
-        <span class="nilai-badge" style="background:#e2e8f0; color:#475569;">
-            Belum
-        </span>
-    @endif
-</td>
-
-            <!-- AKSI -->
-            <td>
-    @if(isset($nilai[$s->id]))
-        <a href="{{ route('guru.nilai.get', $s->id) }}"
-           style="padding:6px 10px; background:#f59e0b; color:white; border-radius:6px; text-decoration:none;">
-            Edit
-        </a>
-    @else
-        <a href="{{ route('guru.nilai.get', $s->id) }}"
-           style="padding:6px 10px; background:#3b82f6; color:white; border-radius:6px; text-decoration:none;">
-            Input
-        </a>
-    @endif
-</td>
-        </tr>
-        @empty
-        <tr>
-            <td colspan="6" class="empty">
-                Tidak ada siswa di kelas ini
-            </td>
-        </tr>
-        @endforelse
-    </table>
-</div>
-    
-    <!-- kembali -->
-    <a href="{{ route('guru.dashboard') }}" class="btn-back">← Kembali</a>
-
 </div>
 
 </body>

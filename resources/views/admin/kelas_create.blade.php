@@ -40,41 +40,66 @@
             margin-bottom: 16px;
             border: 1px solid #cbd5e1;
             border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        /* Button group - dua tombol sejajar */
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
         }
 
         .btn {
-            background: #3b82f6;
-            color: white;
             padding: 10px 16px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            width: 100%;
+            text-decoration: none;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.2s;
+            flex: 1;
         }
 
-        .btn:hover {
+        .btn-back {
+            background: #64748b;
+            color: white;
+            display: inline-block;
+        }
+
+        .btn-back:hover {
+            background: #475569;
+        }
+
+        .btn-simpan {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-simpan:hover {
             background: #2563eb;
         }
 
         .error {
-            color: red;
+            color: #dc2626;
             font-size: 0.85rem;
             margin-bottom: 10px;
+            background: #fef2f2;
+            padding: 10px;
+            border-radius: 8px;
         }
 
-        .back {
-            display: inline-block;
-            margin-bottom: 15px;
-            text-decoration: none;
-            color: #3b82f6;
+        .error ul {
+            margin: 0;
+            padding-left: 20px;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-
-    <a href="{{ route('admin.kelas') }}" class="back">← Kembali</a>
 
     <h2>Tambah Kelas</h2>
 
@@ -93,9 +118,13 @@
         @csrf
 
         <label>Nama Kelas</label>
-        <input type="text" name="nama_kelas" placeholder="Contoh: X IPA 1" required>
+        <input type="text" name="nama_kelas" placeholder="Contoh: X IPA 1" value="{{ old('nama_kelas') }}" required>
 
-        <button type="submit" class="btn">Simpan Kelas</button>
+        <!-- Button group: Kembali di kiri, Simpan di kanan -->
+        <div class="button-group">
+            <a href="{{ route('admin.kelas') }}" class="btn btn-back">Kembali</a>
+            <button type="submit" class="btn btn-simpan">Simpan Kelas</button>
+        </div>
     </form>
 
 </div>

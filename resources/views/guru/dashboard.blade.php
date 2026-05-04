@@ -143,6 +143,15 @@
             margin-bottom: 8px;
         }
 
+        h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #0f172a;
+            border-left: 4px solid #3b82f6;
+            padding-left: 14px;
+        }
+
         .role-badge {
             display: inline-block;
             background: #eef2ff;
@@ -165,26 +174,146 @@
             margin-left: 8px;
         }
 
-        h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
+        /* Stats Container */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 16px;
             margin-bottom: 20px;
-            color: #0f172a;
-            border-left: 4px solid #3b82f6;
-            padding-left: 14px;
         }
 
-        h4 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin: 20px 0 12px 0;
-            color: #334155;
+        .stat-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            transition: 0.2s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #3b82f6;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .stat-detail {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        /* Statistik Nilai */
+        .nilai-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+
+        .nilai-card {
             background: #f8fafc;
-            padding: 8px 12px;
-            border-radius: 8px;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
         }
 
-        /* Button */
+        .nilai-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+
+        .nilai-label {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        /* Kelas Grid */
+        .kelas-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 16px;
+        }
+
+        .kelas-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 18px;
+            transition: 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .kelas-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-color: #cbd5e1;
+        }
+
+        .kelas-card h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1e293b;
+        }
+
+        .kelas-card .info p {
+            font-size: 0.85rem;
+            color: #475569;
+            margin-bottom: 6px;
+        }
+
+        .progress {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 50px;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+
+        .progress .bar {
+            height: 100%;
+            background: #3b82f6;
+            border-radius: 50px;
+            transition: width 0.3s ease;
+        }
+
+        .btn-mini {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 6px 14px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-top: 10px;
+            transition: 0.2s;
+            font-weight: 500;
+        }
+
+        .btn-mini:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+        }
+
         .btn-primary {
             background: #3b82f6;
             color: white;
@@ -192,9 +321,7 @@
             border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            display: inline-block;
             transition: 0.2s;
             font-size: 0.9rem;
             border: none;
@@ -207,85 +334,31 @@
             box-shadow: 0 5px 12px rgba(59, 130, 246, 0.3);
         }
 
-        /* Tabel */
-        .table-wrapper {
-            overflow-x: auto;
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-        }
-
-        th {
-            background: #f8fafc;
-            text-align: left;
-            padding: 12px 16px;
-            font-weight: 600;
-            color: #1e293b;
-            border-bottom: 2px solid #e2e8f0;
-        }
-
-        td {
-            padding: 10px 16px;
-            border-bottom: 1px solid #f0f2f5;
-            color: #334155;
-        }
-
-        tr:hover td {
-            background-color: #fafcff;
-        }
-
-        .nilai-cell {
-            font-weight: 600;
-        }
-
-        .nilai-cell span {
-            background: #f1f5f9;
-            padding: 4px 10px;
-            border-radius: 40px;
-            display: inline-block;
-        }
-
-        .empty-row td {
+        .empty-row {
             text-align: center;
             color: #94a3b8;
-            padding: 32px;
+            padding: 40px;
             font-style: italic;
-        }
-
-        /* Statistik */
-        .stats {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .stat-card {
             background: #f8fafc;
-            padding: 12px 20px;
             border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .stat-number {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #3b82f6;
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: #64748b;
+            grid-column: 1/-1;
         }
 
         /* Responsif */
+        @media (max-width: 900px) {
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            .nilai-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .kelas-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+        }
+
         @media (max-width: 700px) {
             .navbar {
                 padding: 0 20px;
@@ -304,68 +377,11 @@
             .card {
                 padding: 18px;
             }
-            th, td {
-                padding: 8px 12px;
+            .stats-container,
+            .nilai-stats,
+            .kelas-grid {
+                grid-template-columns: 1fr;
             }
-        }
-
-        .kelas-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            margin-top: 16px;
-        }
-
-        .kelas-card {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 16px;
-            transition: 0.2s;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-
-        .kelas-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-        }
-
-        .kelas-card h4 {
-            margin-bottom: 10px;
-            border: none;
-            padding: 0;
-            background: none;
-        }
-
-        .kelas-card .info p {
-            font-size: 0.85rem;
-            color: #475569;
-            margin-bottom: 4px;
-        }
-
-        .progress {
-            height: 6px;
-            background: #e2e8f0;
-            border-radius: 50px;
-            margin: 10px 0;
-            overflow: hidden;
-        }
-
-        .progress .bar {
-            height: 100%;
-            background: #3b82f6;
-            border-radius: 50px;
-        }
-
-        .btn-mini {
-            display: inline-block;
-            font-size: 0.8rem;
-            padding: 6px 10px;
-            background: #3b82f6;
-            color: white;
-            border-radius: 6px;
-            text-decoration: none;
-            margin-top: 8px;
         }
     </style>
 </head>
@@ -380,9 +396,7 @@
 
         <div class="nav-links">
             <a href="{{ route('guru.dashboard') }}" class="active">Dashboard</a>
-            <!-- <a href="{{ route('guru.nilai') }}">Input Nilai</a> -->
-            <!-- <a href="{{ route('guru.sudah') }}">Sudah Dinilai</a>
-            <a href="{{ route('guru.belum') }}">Belum Dinilai</a> -->
+            <a href="{{ route('guru.kelas') }}">Kelas</a>
         </div>
     </div>
 
@@ -410,44 +424,92 @@
         </p>
     </div>
 
-    <!-- Tombol Tambah Nilai
+    <!-- Statistik Utama -->
     <div class="card">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
-            <h3 style="margin-bottom: 0; border-left: none; padding-left: 0;">Kelola Nilai</h3>
-            <a href="{{ route('guru.nilai') }}" class="btn-primary">Tambah Nilai</a>
-        </div>
-    </div> -->
-
-    <div class="card">
-    <h3>Kelas Saya</h3>
-
-    <div class="kelas-grid">
-        @foreach($kelas as $k)
-            @php
-                $totalSiswa = $k->siswa->count();
-                $nilaiMasuk = $k->siswa->filter(function($s) use ($nilai) {
-                    return isset($nilai[$s->id]) && !is_null($nilai[$s->id]->nilai);
-                })->count();
-            @endphp
-
-            <div class="kelas-card">
-                <h4>{{ $k->nama_kelas }}</h4>
-
-                <div class="info">
-                    <p><b>{{ $totalSiswa }}</b> Siswa</p>
-                    <p><b>{{ $nilaiMasuk }}</b> Nilai Terisi</p>
-                </div>
-
-                <div class="progress">
-                    <div class="bar"
-                        style="width: {{ $totalSiswa > 0 ? ($nilaiMasuk / $totalSiswa) * 100 : 0 }}%;">
-                    </div>
-                </div>
-
-                <a href="{{ route('guru.kelas.lihat', $k->id) }}" class="btn-mini">Lihat Kelas</a>
+        <h3>📊 Statistik Pengajaran</h3>
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number">{{ $kelas->count() ?? 0 }}</div>
+                <div class="stat-label">Total Kelas</div>
+                <div class="stat-detail">Kelas yang Anda ajar</div>
             </div>
-        @endforeach
+            <div class="stat-card">
+                <div class="stat-number">{{ $totalSiswa ?? 0 }}</div>
+                <div class="stat-label">Total Siswa</div>
+                <div class="stat-detail">Keseluruhan siswa</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ $nilaiMasuk ?? 0 }}</div>
+                <div class="stat-label">Nilai Sudah Diisi</div>
+                <div class="stat-detail">Dari total {{ $totalSiswa ?? 0 }} siswa</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ ($totalSiswa ?? 0) - ($nilaiMasuk ?? 0) }}</div>
+                <div class="stat-label">Nilai Belum Diisi</div>
+                <div class="stat-detail">Perlu segera diisi</div>
+            </div>
+        </div>
+
+        <!-- Statistik Nilai Rata-Rata -->
+        <div class="nilai-stats">
+            <div class="nilai-card">
+                <div class="nilai-number" style="color: #10b981;">{{ number_format($rataRataKeseluruhan ?? 0, 1) }}</div>
+                <div class="nilai-label">📈 Rata-Rata Keseluruhan</div>
+            </div>
+            <div class="nilai-card">
+                <div class="nilai-number" style="color: #f59e0b;">{{ number_format($nilaiTertinggi ?? 0, 1) }}</div>
+                <div class="nilai-label">🏆 Nilai Tertinggi</div>
+            </div>
+            <div class="nilai-card">
+                <div class="nilai-number" style="color: #ef4444;">{{ number_format($nilaiTerendah ?? 0, 1) }}</div>
+                <div class="nilai-label">📉 Nilai Terendah</div>
+            </div>
+        </div>
     </div>
+
+    <!-- Daftar Kelas yang Diajar -->
+    <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 20px;">
+            <h3 style="margin-bottom: 0; border-left: 4px solid #3b82f6; padding-left: 14px;">🏫 Kelas yang Diajar</h3>
+            <a href="{{ route('guru.kelas') }}" class="btn-primary">Lihat Semua Kelas</a>
+        </div>
+
+        <div class="kelas-grid">
+            @forelse($kelas->take(3) as $k)
+                @php
+                    $totalSiswaKelas = $k->siswa->count();
+                    $nilaiMasukKelas = $k->siswa->filter(function($s) use ($nilai) {
+                        return isset($nilai[$s->id]) && !is_null($nilai[$s->id]->nilai);
+                    })->count();
+                    $persentase = $totalSiswaKelas > 0 ? ($nilaiMasukKelas / $totalSiswaKelas) * 100 : 0;
+                    $rataKelas = $k->siswa->avg(function($s) use ($nilai) {
+                        return isset($nilai[$s->id]) && !is_null($nilai[$s->id]->nilai) ? $nilai[$s->id]->nilai : null;
+                    }) ?? 0;
+                @endphp
+
+                <div class="kelas-card">
+                    <h4>{{ $k->nama_kelas }}</h4>
+                    <div class="info">
+                        <p>👨‍🎓 <b>{{ $totalSiswaKelas }}</b> Siswa</p>
+                        <p>📝 <b>{{ $nilaiMasukKelas }}</b> Nilai Terisi</p>
+                        <p>⭐ Rata-rata: <b>{{ number_format($rataKelas, 1) }}</b></p>
+                    </div>
+                    <div class="progress">
+                        <div class="bar" style="width: {{ $persentase }}%;"></div>
+                    </div>
+                    <div style="font-size: 0.7rem; color: #64748b; text-align: right; margin-top: 4px;">
+                        {{ number_format($persentase, 0) }}% terisi
+                    </div>
+                    <a href="{{ route('guru.kelas.lihat', $k->id) }}" class="btn-mini">Kelola Nilai</a>
+                </div>
+            @empty
+                <div class="empty-row">
+                    Belum ada kelas yang diampu
+                </div>
+            @endforelse
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

@@ -140,12 +140,43 @@
             gap: 16px;
         }
 
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
         h2 {
             font-size: 1.5rem;
             font-weight: 700;
             color: #0f172a;
-            border-left: 4px solid #3b82f6;
+            border-left: 5px solid #3b82f6;
             padding-left: 14px;
+            margin: 0;
+        }
+
+        /* Button Styles */
+        .btn-back {
+            background: #64748b;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-back:hover {
+            background: #475569;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(71, 85, 105, 0.2);
         }
 
         .btn-primary {
@@ -171,6 +202,7 @@
         .table-wrapper {
             overflow-x: auto;
             border-radius: 12px;
+            margin-top: 20px;
         }
 
         table {
@@ -259,6 +291,9 @@
             gap: 20px;
             margin-bottom: 20px;
             flex-wrap: wrap;
+            margin-top: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
         }
 
         .stat-card {
@@ -279,6 +314,23 @@
         .stat-label {
             font-size: 0.8rem;
             color: #64748b;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Footer button */
+        .footer-buttons {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: flex-end; /* Memaksa elemen flex ke kanan */
+        }
+
+        .footer-buttons .btn-back {
+            display: inline-flex; /* Pastikan tombol tetap inline-flex */
         }
 
         /* Responsif */
@@ -304,8 +356,15 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
+            .stats {
+                flex-direction: column;
+            }
             th, td {
                 padding: 10px 12px;
+            }
+            .btn-primary {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -321,9 +380,9 @@
 
         <div class="nav-links">
             <a href="{{ route('admin.dashboard') }}">Home</a>
-            <a href="{{ route('admin.guru') }}" class="active">Guru</a>
             <a href="{{ route('admin.kelas') }}">Kelas</a>
             <a href="{{ route('admin.mapel') }}">Mapel</a>
+            <a href="{{ route('admin.guru') }}" class="active">Guru</a>
         </div>
     </div>
 
@@ -338,8 +397,10 @@
 <div class="container">
     <div class="card">
         <div class="header-section">
-            <h2>Data Guru</h2>
-            <a href="{{ route('guru.create') }}" class="btn-primary">Tambah Guru</a>
+            <div class="header-left">
+                <h2>Data Guru</h2>
+            </div>
+            <a href="{{ route('guru.create') }}" class="btn-primary">+ Tambah Guru Baru</a>
         </div>
 
         <div class="stats">
@@ -350,17 +411,19 @@
         </div>
 
         <div class="table-wrapper">
-            <table>
+             <table>
                 <thead>
-                    <tr>
+                     <tr>
+                        <th width="50">No</th>
                         <th>Nama Guru</th>
-                        <th>NIP</th>
+                        <th width="150">NIP</th>
                         <th>Mata Pelajaran</th>
-                    </tr>
+                     </tr>
                 </thead>
                 <tbody>
                     @forelse($guru as $g)
                     <tr>
+                        <td class="text-center">{{ $loop->iteration }}</td>
                         <td><strong>{{ $g->nama_lengkap }}</strong></td>
                         <td>{{ $g->nip }}</td>
                         <td>
@@ -376,6 +439,13 @@
                     @endforelse
                 </tbody>
             </table>
+        </div>
+
+        <!-- Tombol Kembali di sini (di bawah tabel) -->
+        <div class="footer-buttons">
+            <a href="{{ route('admin.dashboard') }}" class="btn-back">
+                Kembali
+            </a>
         </div>
     </div>
 </div>

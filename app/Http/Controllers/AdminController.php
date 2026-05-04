@@ -15,16 +15,38 @@ class AdminController extends Controller
     // tampilkan dashboard admin
     public function index()
     {
-        $kelas = Kelas::with('siswa')->get();
-
-        return view('admin/dashboard', compact('kelas'));
-    }
-
-    public function createSiswa()
-    {
         $kelas = Kelas::all();
-        return view('admin/siswa', compact('kelas'));
+        $guru = Guru::all();
+        $mapel = Mapel::all();
+        $siswa = Siswa::all();
+
+        return view('admin/dashboard', compact('kelas', 'guru', 'mapel', 'siswa'));
     }
+
+    public function showKelas($id)
+    {
+        $kelas = Kelas::with(['siswa' => function($q){
+            $q->withAvg('nilai', 'nilai');
+        }, 'guru'])->findOrFail($id);
+
+        $gurus = Guru::with('mapel')->get();
+
+        return view('admin.kelas_detail', compact('kelas', 'gurus'));
+    }
+
+    public function siswa()
+{
+    $siswa = Siswa::with('kelas')->get();
+
+    return view('admin.siswa', compact('siswa'));
+}
+
+    public function createSiswa($id_kelas)
+{
+    $kelas = Kelas::findOrFail($id_kelas);
+
+    return view('admin.siswa_create', compact('kelas'));
+}
 
     public function storeSiswa(Request $request)
     {
@@ -40,8 +62,8 @@ class AdminController extends Controller
             'id_kelas' => $request->id_kelas
         ]);
 
-        return redirect('/admin/dashboard')
-            ->with('success', 'Siswa berhasil ditambah');
+        return redirect()->route('admin.kelas.detail', $request->id_kelas)
+    ->with('success', 'Siswa berhasil ditambah');
     }
 
     public function guru()
@@ -85,6 +107,21 @@ class AdminController extends Controller
 
     return redirect()->route('admin.guru')
         ->with('success', 'Guru berhasil ditambahkan & bisa login');
+}
+
+    // tambah kelas guru
+    public function assignGuru(Request $request)
+{
+    $request->validate([
+        'id_guru' => 'required|exists:gurus,id',
+        'id_kelas' => 'required|exists:kelas,id',
+    ]);
+
+    $kelas = Kelas::findOrFail($request->id_kelas);
+
+    $kelas->guru()->syncWithoutDetaching([$request->id_guru]);
+
+    return back()->with('success', 'Guru berhasil ditambahkan ke kelas');
 }
 
     public function kelas()

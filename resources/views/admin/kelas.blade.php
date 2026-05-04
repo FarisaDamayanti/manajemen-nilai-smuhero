@@ -98,6 +98,25 @@
             gap: 20px;
         }
 
+        .btn-back {
+            background: #64748b;
+            color: white;
+            padding: 6px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-back:hover {
+            background: #475569;
+            transform: translateY(-1px);
+        }
+
         .logout-form button {
             background: rgba(239, 68, 68, 0.85);
             color: white;
@@ -140,31 +159,19 @@
             gap: 16px;
         }
 
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
         h2 {
             font-size: 1.5rem;
             font-weight: 700;
             color: #0f172a;
             border-left: 4px solid #3b82f6;
             padding-left: 14px;
-        }
-
-        h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
             margin: 0;
-            color: #0f172a;
-            background: #f8fafc;
-            padding: 10px 16px;
-            border-radius: 10px;
-            display: inline-block;
-        }
-
-        .kelas-section {
-            margin-bottom: 32px;
-        }
-
-        .kelas-section:last-child {
-            margin-bottom: 0;
         }
 
         /* Button */
@@ -187,96 +194,96 @@
             transform: translateY(-1px);
         }
 
-        /* Tabel */
-        .table-wrapper {
-            overflow-x: auto;
-            border-radius: 12px;
-            margin-top: 16px;
+        /* Kelas Grid */
+        .kelas-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
+        .kelas-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 20px;
+            transition: 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
-        th {
-            background: #f8fafc;
-            text-align: left;
-            padding: 12px 16px;
-            font-weight: 600;
-            color: #1e293b;
-            border-bottom: 2px solid #e2e8f0;
+        .kelas-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-color: #cbd5e1;
         }
 
-        td {
-            padding: 10px 16px;
-            border-bottom: 1px solid #f0f2f5;
-            color: #334155;
-        }
-
-        tr:hover td {
-            background-color: #fafcff;
-        }
-
-        .empty-row td {
-            text-align: center;
-            color: #94a3b8;
-            padding: 40px;
-            font-style: italic;
-        }
-
-        /* Nilai Badge */
-        .nilai-badge {
-            background: #f1f5f9;
-            padding: 4px 10px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            display: inline-block;
+        .kelas-card h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
             color: #0f172a;
         }
 
-        .nilai-high {
-            background: #dcfce7;
-            color: #166534;
+        .info {
+            margin-bottom: 16px;
         }
 
-        .nilai-medium {
-            background: #fef3c7;
-            color: #d97706;
+        .info p {
+            font-size: 0.9rem;
+            color: #475569;
+            margin-bottom: 6px;
         }
 
-        .nilai-low {
-            background: #fee2e2;
-            color: #dc2626;
-        }
-
-        /* Statistik Kelas */
-        .class-stats {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .stat-item {
-            background: #f8fafc;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-        }
-
-        .stat-label {
-            color: #64748b;
-        }
-
-        .stat-value {
+        .info .siswa-count {
             font-weight: 700;
-            color: #1e293b;
-            margin-left: 6px;
+            color: #3b82f6;
+            font-size: 1.1rem;
+        }
+
+        .btn-mini {
+            display: inline-block;
+            font-size: 0.8rem;
+            padding: 6px 14px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: 0.2s;
+            margin-top: 8px;
+        }
+
+        .btn-mini:hover {
+            background: #2563eb;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px;
+            color: #64748b;
+            font-style: italic;
+        }
+
+        /* Footer button */
+        .footer-buttons {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: flex-end; /* Memaksa elemen flex ke kanan */
+        }
+
+        .footer-buttons .btn-back {
+            display: inline-flex; /* Pastikan tombol tetap inline-flex */
         }
 
         /* Responsif */
+        @media (max-width: 900px) {
+            .kelas-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+        }
+
         @media (max-width: 700px) {
             .navbar {
                 padding: 0 20px;
@@ -295,11 +302,12 @@
             .card {
                 padding: 18px;
             }
-            th, td {
-                padding: 8px 12px;
+            .kelas-grid {
+                grid-template-columns: 1fr;
             }
-            h3 {
-                font-size: 1.1rem;
+            .header-section {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
     </style>
@@ -315,9 +323,9 @@
 
         <div class="nav-links">
             <a href="{{ route('admin.dashboard') }}">Home</a>
-            <a href="{{ route('admin.guru') }}">Guru</a>
             <a href="{{ route('admin.kelas') }}" class="active">Kelas</a>
             <a href="{{ route('admin.mapel') }}">Mapel</a>
+            <a href="{{ route('admin.guru') }}">Guru</a>
         </div>
     </div>
 
@@ -332,69 +340,39 @@
 <div class="container">
     <div class="card">
         <div class="header-section">
-            <h2>Data Kelas</h2>
-            <a href="{{ route('kelas.create') }}" class="btn-primary">Tambah Kelas</a>
+            <div class="header-left">
+                <h2>Data Kelas</h2>
+            </div>
+            <a href="{{ route('kelas.create') }}" class="btn-primary">+ Tambah Kelas</a>
         </div>
 
-        @forelse($kelas as $k)
-            <div class="kelas-section">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
-                    <h3>{{ $k->nama_kelas }}</h3>
-                    <div class="class-stats">
-                        <div class="stat-item">
-                            <span class="stat-label">Jumlah Siswa:</span>
-                            <span class="stat-value">{{ $k->siswa->count() }}</span>
-                        </div>
+        <div class="kelas-grid">
+            @forelse($kelas as $k)
+                <div class="kelas-card">
+                    <h4>{{ $k->nama_kelas }}</h4>
+                    <div class="info">
+                        <p>
+                            <span class="siswa-count">{{ $k->siswa->count() }}</span> 
+                            Siswa Terdaftar
+                        </p>
                     </div>
+                    <a href="{{ route('admin.kelas.detail', $k->id) }}" class="btn-mini">
+                        Lihat Detail
+                    </a>
                 </div>
-
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Nama Siswa</th>
-                                <th>NIS</th>
-                                <th>Rata-rata</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($k->siswa as $s)
-                            <tr>
-                                <td><strong>{{ $s->nama_siswa }}</strong></td>
-                                <td>{{ $s->nis }}</td>
-                                <td>
-                                    @php
-                                        $nilaiRata = $s->nilai_rata ?? 0;
-                                        $nilaiClass = 'nilai-badge';
-                                        if ($nilaiRata >= 85) {
-                                            $nilaiClass .= ' nilai-high';
-                                        } elseif ($nilaiRata >= 70) {
-                                            $nilaiClass .= ' nilai-medium';
-                                        } elseif ($nilaiRata > 0) {
-                                            $nilaiClass .= ' nilai-low';
-                                        }
-                                    @endphp
-                                    <span class="{{ $nilaiClass }}">
-                                        {{ number_format($nilaiRata, 2) }}
-                                    </span>
-                                </td>
-                            </tr>
-                            @empty
-                            <tr class="empty-row">
-                                <td colspan="3">Belum ada siswa di kelas ini</td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+            @empty
+                <div class="empty-state">
+                    Belum ada kelas yang terdaftar
                 </div>
-            </div>
-        @empty
-            <div class="empty-row" style="text-align: center; padding: 60px 20px; color: #94a3b8;">
-                Belum ada data kelas
-            </div>
-        @endforelse
+            @endforelse
+        </div>
+        <!-- Tombol Kembali di sini (di bawah tabel) -->
+        <div class="footer-buttons">
+            <a href="{{ route('admin.dashboard') }}" class="btn-back">
+                Kembali
+            </a>
+        </div>
     </div>
 </div>
-
 </body>
 </html>
