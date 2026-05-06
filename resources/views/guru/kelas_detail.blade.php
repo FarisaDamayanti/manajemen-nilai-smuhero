@@ -258,6 +258,11 @@
         table {
             font-size: 0.8rem;
         }
+
+        .capaian-text {
+            max-width: 300px;
+            color: #334155;
+        }
     }
 </style>
 </head>
@@ -324,6 +329,7 @@
                         <th width="100">Nama Siswa</th>
                         <th width="100">Nilai</th>
                         <th width="100">Status</th>
+                        <th width="100">Capaian</th>
                         <th width="10">Aksi</th>
                     </tr>
                 </thead>
@@ -359,6 +365,11 @@
                                 @else
                                     <span class="badge badge-danger">Remedial</span>
                                 @endif
+                            </td>
+
+                            {{-- CAPAIAN --}}
+                            <td class="capaian-text">
+                                {{ $s->deskripsi ?? '-' }}
                             </td>
 
                             {{-- AKSI --}}

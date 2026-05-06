@@ -21,21 +21,21 @@ class UserSeeder extends Seeder
             'role' => 'admin',
         ]);
 
-        // GURU 1
-        User::create([
-            'name' => 'Guru Matematika',
-            'email' => 'guru1@gmail.com',
-            'password' => Hash::make('guru1'),
-            'role' => 'guru',
-        ]);
+        // // GURU 1
+        // User::create([
+        //     'name' => 'Hilal Pratama',
+        //     'email' => 'hilal@gmail.com',
+        //     'password' => Hash::make('hilal'),
+        //     'role' => 'guru',
+        // ]);
 
-        // GURU 2
-        User::create([
-            'name' => 'Guru Bahasa Indonesia',
-            'email' => 'guru2@gmail.com',
-            'password' => Hash::make('guru2'),
-            'role' => 'guru',
-        ]);
+        // // GURU 2
+        // User::create([
+        //     'name' => 'Iffah Rahmawati',
+        //     'email' => 'iffah@gmail.com',
+        //     'password' => Hash::make('iffah'),
+        //     'role' => 'guru',
+        // ]);
     }
     
 }

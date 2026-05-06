@@ -13,7 +13,6 @@ class Siswa extends Model
         'id_kelas',
         'nama_siswa',
         'nis',
-        'nilai_rata'
     ];
 
     public function kelas()

@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('siswas', function (Blueprint $table) {
-             if (!Schema::hasColumn('siswas', 'nilai_rata')) {
-                $table->decimal('nilai_rata', 5, 2)->nullable()->after('nis');
-            }
+        Schema::create('capaian_pembelajaran', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('id_mapel')->constrained('mapels');
+            $table->text('deskripsi');
+            $table->timestamps();
         });
     }
 
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('capaian_pembelajaran');
     }
 };

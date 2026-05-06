@@ -140,10 +140,12 @@ class AdminController extends Controller
     {
         $request->validate([
             'nama_kelas' => 'required|unique:kelas,nama_kelas',
+            'tingkat' => 'required|integer'
         ]);
 
         Kelas::create([
             'nama_kelas' => $request->nama_kelas,
+            'tingkat' => $request->tingkat
         ]);
 
         return redirect('/admin/kelas')

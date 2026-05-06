@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CapaianPembelajaran;
 use App\Models\Guru;
 use App\Models\Kelas;
 use App\Models\Mapel;
@@ -17,7 +18,9 @@ class GuruController extends Controller
 {
     // Ambil data guru yang sedang login
     $guru = auth()->user()->guru;
-    
+    if (!$guru) {
+    abort(403, 'Data guru belum dibuat');
+}
     // Ambil kelas yang diampu oleh guru ini
     $kelas = $guru->kelas; // atau sesuai relasi Anda
     
@@ -142,6 +145,11 @@ class GuruController extends Controller
         ->get()
         ->keyBy('id_siswa');
 
+    // 🔥 AMBIL CAPAIAN SESUAI MAPEL + KELAS
+    $capaian = CapaianPembelajaran::where('id_mapel', $guru->id_mapel)
+    ->where('tingkat', $kelas->tingkat)
+    ->get();
+
     $siswa = $kelas->siswa;
 
     // FILTER LOGIC
@@ -150,6 +158,34 @@ class GuruController extends Controller
     } elseif ($filter == 'belum') {
         $siswa = $siswa->filter(fn($s) => !isset($nilai[$s->id]));
     }
+
+    // 🔥 TAMBAHKAN DESKRIPSI CAPAIAN
+   foreach ($siswa as $s) {
+
+    $nilaiSiswa = $nilai[$s->id]->nilai ?? null;
+
+    if (is_null($nilaiSiswa)) {
+        $kategori = 'belum dinilai';
+    } elseif ($nilaiSiswa >= 85) {
+        $kategori = 'sangat baik';
+    } elseif ($nilaiSiswa >= 75) {
+        $kategori = 'baik';
+    } else {
+        $kategori = 'cukup';
+    }
+
+    $deskripsiGabungan = '';
+
+    foreach ($capaian as $cp) {
+        $deskripsiGabungan .= str_replace(
+            ['{{nama}}','{{kategori}}','{{mapel}}'],
+            [$s->nama_siswa, $kategori, $guru->mapel->nama_mapel],
+            $cp->deskripsi
+        ) . ' ';
+    }
+
+    $s->deskripsi = $deskripsiGabungan ?: 'Capaian belum tersedia';
+}
 
     return view('guru.kelas_detail', compact('kelas', 'guru', 'nilai', 'siswa', 'filter'));
 }

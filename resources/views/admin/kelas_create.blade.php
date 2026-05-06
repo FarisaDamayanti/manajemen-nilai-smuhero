@@ -119,6 +119,8 @@
 
         <label>Nama Kelas</label>
         <input type="text" name="nama_kelas" placeholder="Contoh: X IPA 1" value="{{ old('nama_kelas') }}" required>
+        <label>Tingkat</label>
+        <input type="text" name="tingkat" placeholder="Contoh: 10" value="{{ old('tingkat') }}" required>
 
         <!-- Button group: Kembali di kiri, Simpan di kanan -->
         <div class="button-group">

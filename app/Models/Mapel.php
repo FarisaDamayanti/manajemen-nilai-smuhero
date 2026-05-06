@@ -22,4 +22,9 @@ class Mapel extends Model
     {
         return $this->hasMany(Nilai::class, 'id_mapel');
     }
+
+    public function capaian()
+    {
+        return $this->hasMany(CapaianPembelajaran::class, 'id_mapel');
+    }
 }
