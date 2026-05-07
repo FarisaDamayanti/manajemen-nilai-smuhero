@@ -77,6 +77,43 @@
             color: #3b82f6;
             text-decoration: none;
         }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.2s;
+            flex: 1;
+        }
+
+        .btn-back {
+            background: #64748b;
+            color: white;
+        }
+
+        .btn-back:hover {
+            background: #475569;
+        }
+
+        .btn-simpan {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-simpan:hover {
+            background: #2563eb;
+        }
     </style>
 </head>
 
@@ -85,8 +122,6 @@
 <!-- CONTENT -->
 <div class="container">
     <div class="card">
-
-        <a href="{{ route('admin.mapel') }}" class="back">← Kembali</a>
 
         <h2>Tambah Mata Pelajaran</h2>
 
@@ -106,9 +141,11 @@
             <label>Nama Mapel</label>
             <input type="text" name="nama_mapel" placeholder="Contoh: Matematika">
 
-            <button type="submit" class="btn">Simpan Mapel</button>
+            <div class="button-group">
+                <a href="{{ route('admin.dashboard') }}" class="btn btn-back">Kembali</a>
+                <button type="submit" class="btn btn-simpan">Simpan</button>
+            </div>
         </form>
-
     </div>
 </div>
 

@@ -24,46 +24,60 @@ Route::get('/', function () {
 //home
 Route::get('/index', [HomeController::class, 'index']);
 
-Route::post('/register', [AuthController::class, 'store']);
-Route::get('/register', [AuthController::class, 'create'])->name('register'); //fungsi name untuk penamaan route, jika url berubah tidak perlu mengubah route yg sdh diteteapkan
-Route::post('/login', [AuthController::class, 'storeLogin']);
+// login
 Route::get('/login', [AuthController::class, 'createLogin'])->name('login');
-// admin create kelas
-Route::get('/admin/kelas/create', [AdminController::class, 'createKelas'])->name('kelas.create');
-Route::post('/admin/kelas/store', [AdminController::class, 'storeKelas'])->name('kelas.store');
-// dashboard guru
-Route::get('/guru/dashboard', [GuruController::class, 'index'])->name('guru.dashboard');
-//guru lihat kelas
-Route::get('/guru/kelas', [GuruController::class, 'kelas'])->name('guru.kelas');
-Route::get('/guru/kelas/{id}', [GuruController::class, 'lihatKelas'])->name('guru.kelas.lihat');
-// guru niali sudah
-Route::get('/guru/sudah-dinilai', [GuruController::class, 'sudahDinilai'])->name('guru.sudah');
-// guru nilai belum
-Route::get('/guru/belum-dinilai', [GuruController::class, 'belumDinilai'])->name('guru.belum');
-// dashboard admin
-Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-Route::get('/admin/guru', [AdminController::class, 'guru'])->name('admin.guru');
-// detail kelas
-Route::get('/admin/kelas/{id}', [AdminController::class, 'showKelas'])->name('admin.kelas.detail');
-Route::get('/admin/kelas', [AdminController::class, 'kelas'])->name('admin.kelas');
-Route::get('/admin/mapel', [AdminController::class, 'mapel'])->name('admin.mapel');
-Route::get('/admin/siswa', [AdminController::class, 'siswa'])->name('admin.siswa');
-// admin create guru
-Route::get('/admin/guru/create', [AdminController::class, 'createGuru'])->name('guru.create');
-Route::post('/admin/guru/store', [AdminController::class, 'storeGuru'])->name('guru.store');
-// admin tambah kelas guru
-Route::post('/admin/assign-guru', [AdminController::class, 'assignGuru'])->name('admin.assign.guru');
-// admin create mapel
-Route::get('/admin/mapel/create', [AdminController::class, 'createMapel'])->name('mapel.create');
-Route::post('/admin/mapel/store', [AdminController::class, 'storeMapel'])->name('mapel.store');
-//admin create siswa
-Route::get('/admin/siswa/create{id_kelas}', [AdminController::class, 'createSiswa'])->name('siswa.create');
-Route::post('/admin/siswa/store', [AdminController::class, 'storeSiswa'])->name('siswa.store');
-// input nilai
-Route::get('/guru/nilai/{id_siswa}', [GuruController::class, 'inputNilai'])->name('guru.nilai.get');
-Route::post('/guru/nilai', [GuruController::class, 'storeNilai'])->name('guru.nilai');
-// logout
+Route::post('/login', [AuthController::class, 'storeLogin']);
+
+// Route::get('/register', [AuthController::class, 'create'])->name('register');
+// Route::post('/register', [AuthController::class, 'store']);
+
 Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');
-//profile
-Route::get('/guru/profile', [GuruController::class, 'profile'])->name('guru.profile');
-Route::post('/guru/profile', [GuruController::class, 'storeProfile']);
+
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+
+Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+
+// create kelas
+Route::get('/kelas', [AdminController::class, 'kelas'])->name('admin.kelas');
+Route::get('/kelas/create', [AdminController::class, 'createKelas'])->name('kelas.create');
+Route::post('/kelas/store', [AdminController::class, 'storeKelas'])->name('kelas.store');
+Route::get('/kelas/{id}', [AdminController::class, 'showKelas'])->name('admin.kelas.detail');
+
+// create user & data guru
+Route::get('/guru', [AdminController::class, 'guru'])->name('admin.guru');
+Route::get('/guru/create', [AdminController::class, 'createGuru'])->name('guru.create');
+Route::post('/guru/store', [AdminController::class, 'storeGuru'])->name('guru.store');
+
+// tambah guru ke kelas
+Route::post('/assign-guru', [AdminController::class, 'assignGuru'])->name('admin.assign.guru');
+
+// create mapel
+Route::get('/mapel', [AdminController::class, 'mapel'])->name('admin.mapel');
+Route::get('/mapel/create', [AdminController::class, 'createMapel'])->name('mapel.create');
+Route::post('/mapel/store', [AdminController::class, 'storeMapel'])->name('mapel.store');
+
+// create siswa
+Route::get('/siswa', [AdminController::class, 'siswa'])->name('admin.siswa');
+Route::get('/siswa/create/{id_kelas}', [AdminController::class, 'createSiswa'])->name('siswa.create');
+Route::post('/siswa/store', [AdminController::class, 'storeSiswa'])->name('siswa.store');
+
+// capaian pembelajaran
+Route::get('/admin/capaian', [AdminController::class, 'capaian'])->name('admin.capaian');
+Route::get('/admin/capaian/create', [AdminController::class, 'createCapaian'])->name('admin.capaian.create');
+Route::post('/admin/capaian/store', [AdminController::class, 'storeCapaian'])->name('admin.capaian.store');
+});
+
+//role guru
+Route::middleware(['auth', 'role:guru'])->prefix('guru')->group(function () {
+
+Route::get('/dashboard', [GuruController::class, 'index'])->name('guru.dashboard');
+
+Route::get('/kelas', [GuruController::class, 'kelas'])->name('guru.kelas');
+Route::get('/kelas/{id}', [GuruController::class, 'lihatKelas'])->name('guru.kelas.lihat');
+
+Route::get('/nilai/{id_siswa}', [GuruController::class, 'inputNilai'])->name('guru.nilai.get');
+Route::post('/nilai', [GuruController::class, 'storeNilai'])->name('guru.nilai');
+
+Route::get('/profile', [GuruController::class, 'profile'])->name('guru.profile');
+Route::post('/profile', [GuruController::class, 'storeProfile']);
+});

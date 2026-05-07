@@ -319,28 +319,6 @@
 </head>
 <body>
 
-<!-- <div class="navbar">
-    <div class="nav-left">
-        <div class="logo">
-            <div class="logo-icon">G</div>
-            <span class="logo-text">Guru</span>
-        </div>
-
-        <div class="nav-links">
-            <a href="{{ route('guru.dashboard') }}">Dashboard</a>
-            <a href="{{ route('guru.nilai') }}" class="active">Input Nilai</a>
-        </div>
-    </div>
-
-    <div class="user-info">
-        <span class="user-name">{{ auth()->user()->name }}</span>
-        <form class="logout-form" method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit">Logout</button>
-        </form>
-    </div>
-</div> -->
-
 <div class="container">    
 
     <div class="card">
@@ -394,8 +372,8 @@
             </div>
 
             <div class="button-group">
+                <a href="{{ route('guru.kelas.lihat', $siswa->id_kelas) }}" class="btn-secondary">Kembali</a>
                 <button type="submit" class="btn-primary">Simpan Nilai</button>
-                <a href="{{ route('guru.dashboard') }}" class="btn-secondary">Kembali</a>
             </div>
         </form>
     </div>

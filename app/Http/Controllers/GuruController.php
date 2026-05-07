@@ -119,7 +119,9 @@ class GuruController extends Controller
             ]
         );
 
-        return redirect('/guru/dashboard')
+         $siswa = Siswa::findOrFail($request->id_siswa);
+
+        return redirect()->route('guru.kelas.lihat', $siswa->id_kelas)
             ->with('success', 'Nilai berhasil ditambah');
     }
 

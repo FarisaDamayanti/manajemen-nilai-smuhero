@@ -374,10 +374,15 @@
 
                             {{-- AKSI --}}
                             <td>
-                                <a href="{{ route('guru.nilai.get', $s->id) }}"
-                                   class="btn {{ $n ? 'btn-warning' : 'btn-primary' }}">
-                                    {{ $n ? 'Edit' : 'Input' }}
-                                </a>
+                                @if(!is_null($n))
+                                    <a href="{{ route('guru.nilai.get', $s->id) }}" class="btn btn-warning">
+                                        Edit
+                                    </a>
+                                @else
+                                    <a href="{{ route('guru.nilai.get', $s->id) }}" class="btn btn-primary">
+                                        Input
+                                    </a>
+                                @endif
                             </td>
                         </tr>
                     @empty

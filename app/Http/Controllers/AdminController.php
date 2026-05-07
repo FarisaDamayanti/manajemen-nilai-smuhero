@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CapaianPembelajaran;
 use App\Models\Guru;
 use App\Models\Kelas;
 use App\Models\Mapel;
@@ -175,5 +176,37 @@ class AdminController extends Controller
 
     return redirect('/admin/mapel')
         ->with('success', 'Mapel berhasil ditambah');
+}
+
+    public function capaian()
+{
+    $capaian = CapaianPembelajaran::with('mapel')->get();
+
+    return view('admin.capaian', compact('capaian'));
+}
+
+    public function createCapaian()
+{
+    $mapel = Mapel::all();
+
+    return view('admin.capaian_create', compact('mapel'));
+}
+
+    public function storeCapaian(Request $request)
+{
+    $request->validate([
+        'id_mapel' => 'required|exists:mapels,id',
+        'tingkat' => 'required|integer',
+        'deskripsi' => 'required',
+    ]);
+
+    CapaianPembelajaran::create([
+        'id_mapel' => $request->id_mapel,
+        'tingkat' => $request->tingkat,
+        'deskripsi' => $request->deskripsi,
+    ]);
+
+    return redirect()->route('admin.capaian')
+        ->with('success', 'Capaian pembelajaran berhasil ditambahkan');
 }
 }
