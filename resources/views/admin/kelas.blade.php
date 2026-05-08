@@ -326,6 +326,7 @@
             <a href="{{ route('admin.kelas') }}" class="active">Kelas</a>
             <a href="{{ route('admin.mapel') }}">Mapel</a>
             <a href="{{ route('admin.guru') }}">Guru</a>
+            <a href="{{ route('admin.capaian') }}">Capaian</a>
         </div>
     </div>
 

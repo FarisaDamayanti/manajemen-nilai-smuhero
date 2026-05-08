@@ -3,31 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tambah Capaian Pembelajaran</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 60px auto;
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            border-left: 4px solid #3b82f6;
+            padding-left: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #334155;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* Button group - dua tombol sejajar */
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.2s;
+            flex: 1;
+            display: inline-block;
+        }
+
+        .btn-back {
+            background: #64748b;
+            color: white;
+        }
+
+        .btn-back:hover {
+            background: #475569;
+        }
+
+        .btn-simpan {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-simpan:hover {
+            background: #2563eb;
+        }
+
+        .error {
+            color: #dc2626;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            background: #fef2f2;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .error ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+    </style>
 </head>
 <body>
-<h2>Tambah Capaian Pembelajaran</h2>
 
-<form action="{{ route('admin.capaian.store') }}" method="POST">
-    @csrf
+<div class="container">
 
-    <label>Mapel</label>
-    <select name="id_mapel" required>
-        @foreach($mapel as $m)
-            <option value="{{ $m->id }}">{{ $m->nama_mapel }}</option>
-        @endforeach
-    </select>
-    <br><br>
+    <h2>Tambah Capaian Pembelajaran</h2>
 
-    <label>Tingkat Kelas</label>
-    <input type="number" name="tingkat" required>
-    <br><br>
+    {{-- error validation --}}
+    @if ($errors->any())
+        <div class="error">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-    <label>Deskripsi</label>
-    <textarea name="deskripsi" required></textarea>
-    <br><br>
+    <form action="{{ route('admin.capaian.store') }}" method="POST">
+        @csrf
 
-    <button type="submit">Simpan</button>
-</form>
+        <label>Mapel</label>
+        <select name="id_mapel" required>
+            <option value="">-- Pilih Mapel --</option>
+            @foreach($mapel as $m)
+                <option value="{{ $m->id }}" {{ old('id_mapel') == $m->id ? 'selected' : '' }}>{{ $m->nama_mapel }}</option>
+            @endforeach
+        </select>
+
+        <label>Tingkat Kelas</label>
+        <input type="number" name="tingkat" placeholder="Masukkan tingkat kelas (contoh: 10, 11, 12)" value="{{ old('tingkat') }}" required>
+
+        <label>Deskripsi</label>
+        <textarea name="deskripsi" placeholder="Masukkan deskripsi capaian pembelajaran" required>{{ old('deskripsi') }}</textarea>
+
+        <!-- Button group: Kembali di kiri, Simpan di kanan -->
+        <div class="button-group">
+            <a href="{{ route('admin.capaian') }}" class="btn btn-back">Kembali</a>
+            <button type="submit" class="btn btn-simpan">Simpan Capaian</button>
+        </div>
+    </form>
+
+</div>
+
 </body>
 </html>
