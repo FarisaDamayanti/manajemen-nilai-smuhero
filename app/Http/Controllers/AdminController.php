@@ -36,18 +36,18 @@ class AdminController extends Controller
     }
 
     public function siswa()
-{
-    $siswa = Siswa::with('kelas')->get();
+    {
+        $siswa = Siswa::with('kelas')->get();
 
-    return view('admin.siswa', compact('siswa'));
-}
+        return view('admin.siswa', compact('siswa'));
+    }
 
-    public function createSiswa($id_kelas)
-{
-    $kelas = Kelas::findOrFail($id_kelas);
+        public function createSiswa($id_kelas)
+    {
+        $kelas = Kelas::findOrFail($id_kelas);
 
-    return view('admin.siswa_create', compact('kelas'));
-}
+        return view('admin.siswa_create', compact('kelas'));
+    }
 
     public function storeSiswa(Request $request)
     {
@@ -67,6 +67,58 @@ class AdminController extends Controller
     ->with('success', 'Siswa berhasil ditambah');
     }
 
+    public function detailSiswa($id)
+    {
+        $siswa = Siswa::with(['kelas', 'nilai.mapel'])->findOrFail($id);
+
+        return view('admin.siswa_detail', compact('siswa'));
+    }
+
+    // form edit siswa
+    public function editSiswa($id)
+    {
+        $siswa = Siswa::findOrFail($id);
+        $kelas = $siswa->kelas;
+
+        return view('admin.siswa_edit', compact('siswa', 'kelas'));
+    }
+
+    // update siswa
+    public function updateSiswa(Request $request, $id)
+    {
+        $request->validate([
+            'nama_siswa' => 'required',
+            'nis' => 'required',
+            'id_kelas' => 'required|exists:kelas,id',
+        ]);
+
+        $siswa = Siswa::findOrFail($id);
+
+        $siswa->update([
+            'nama_siswa' => $request->nama_siswa,
+            'nis' => $request->nis,
+            'id_kelas' => $request->id_kelas
+        ]);
+
+        return redirect()->route('admin.kelas.detail', $request->id_kelas)
+            ->with('success', 'Siswa berhasil diupdate');
+    }
+
+    public function deleteSiswa($id)
+    {
+        $siswa = Siswa::findOrFail($id);
+
+        // hapus semua nilai dulu
+        $siswa->nilai()->delete();
+
+        $id_kelas = $siswa->id_kelas;
+
+        $siswa->delete();
+
+        return redirect()->route('admin.kelas.detail', $id_kelas)
+            ->with('success', 'Siswa berhasil dihapus');
+    }
+
     public function guru()
     {
         $guru = Guru::with('mapel')->get();
@@ -81,49 +133,49 @@ class AdminController extends Controller
     }
 
     public function storeGuru(Request $request)
-{
-    $request->validate([
-        'nama_guru' => 'required',
-        'email' => 'required|email|unique:users,email',
-        'password' => 'required|min:6',
-        'nip' => 'required',
-        'id_mapel' => 'required',
-    ]);
+    {
+        $request->validate([
+            'nama_guru' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6',
+            'nip' => 'required',
+            'id_mapel' => 'required',
+        ]);
 
-    // 1. buat user login
-    $user = User::create([
-        'name' => $request->nama_guru,
-        'email' => $request->email,
-        'password' => Hash::make($request->password),
-        'role' => 'guru',
-    ]);
+        // 1. buat user login
+        $user = User::create([
+            'name' => $request->nama_guru,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'guru',
+        ]);
 
-    // 2. buat data guru
-    Guru::create([
-        'id_user' => $user->id,
-        'nama_lengkap' => $request->nama_guru,
-        'nip' => $request->nip,
-        'id_mapel' => $request->id_mapel,
-    ]);
+        // 2. buat data guru
+        Guru::create([
+            'id_user' => $user->id,
+            'nama_lengkap' => $request->nama_guru,
+            'nip' => $request->nip,
+            'id_mapel' => $request->id_mapel,
+        ]);
 
-    return redirect()->route('admin.guru')
-        ->with('success', 'Guru berhasil ditambahkan & bisa login');
-}
+        return redirect()->route('admin.guru')
+            ->with('success', 'Guru berhasil ditambahkan & bisa login');
+    }
 
     // tambah kelas guru
     public function assignGuru(Request $request)
-{
-    $request->validate([
-        'id_guru' => 'required|exists:gurus,id',
-        'id_kelas' => 'required|exists:kelas,id',
-    ]);
+    {
+        $request->validate([
+            'id_guru' => 'required|exists:gurus,id',
+            'id_kelas' => 'required|exists:kelas,id',
+        ]);
 
-    $kelas = Kelas::findOrFail($request->id_kelas);
+        $kelas = Kelas::findOrFail($request->id_kelas);
 
-    $kelas->guru()->syncWithoutDetaching([$request->id_guru]);
+        $kelas->guru()->syncWithoutDetaching([$request->id_guru]);
 
-    return back()->with('success', 'Guru berhasil ditambahkan ke kelas');
-}
+        return back()->with('success', 'Guru berhasil ditambahkan ke kelas');
+    }
 
     public function kelas()
     {
@@ -149,7 +201,7 @@ class AdminController extends Controller
             'tingkat' => $request->tingkat
         ]);
 
-        return redirect('/admin/kelas')
+        return redirect()->route('admin.kelas')
             ->with('success', 'Kelas berhasil ditambah');
     }
 
@@ -165,48 +217,88 @@ class AdminController extends Controller
     }
 
     public function storeMapel(Request $request)
-{
-    $request->validate([
-        'nama_mapel' => 'required|unique:mapels,nama_mapel',
-    ]);
+    {
+        $request->validate([
+            'nama_mapel' => 'required|unique:mapels,nama_mapel',
+        ]);
 
-    Mapel::create([
-        'nama_mapel' => $request->nama_mapel,
-    ]);
+        Mapel::create([
+            'nama_mapel' => $request->nama_mapel,
+        ]);
 
-    return redirect('/admin/mapel')
-        ->with('success', 'Mapel berhasil ditambah');
-}
+        return redirect('/admin/mapel')
+            ->with('success', 'Mapel berhasil ditambah');
+    }
 
     public function capaian()
-{
-    $capaian = CapaianPembelajaran::with('mapel')->get();
+    {
+        $capaian = CapaianPembelajaran::with('mapel')->get();
 
-    return view('admin.capaian', compact('capaian'));
-}
+        return view('admin.capaian', compact('capaian'));
+    }
 
     public function createCapaian()
-{
-    $mapel = Mapel::all();
+    {
+        $mapel = Mapel::all();
 
-    return view('admin.capaian_create', compact('mapel'));
-}
+        return view('admin.capaian_create', compact('mapel'));
+    }
 
     public function storeCapaian(Request $request)
-{
-    $request->validate([
-        'id_mapel' => 'required|exists:mapels,id',
-        'tingkat' => 'required|integer',
-        'deskripsi' => 'required',
-    ]);
+    {
+        $request->validate([
+            'id_mapel' => 'required|exists:mapels,id',
+            'tingkat' => 'required|integer',
+            'deskripsi' => 'required',
+        ]);
 
-    CapaianPembelajaran::create([
-        'id_mapel' => $request->id_mapel,
-        'tingkat' => $request->tingkat,
-        'deskripsi' => $request->deskripsi,
-    ]);
+        CapaianPembelajaran::create([
+            'id_mapel' => $request->id_mapel,
+            'tingkat' => $request->tingkat,
+            'deskripsi' => $request->deskripsi,
+        ]);
 
-    return redirect()->route('admin.capaian')
-        ->with('success', 'Capaian pembelajaran berhasil ditambahkan');
-}
+        return redirect()->route('admin.capaian')
+            ->with('success', 'Capaian pembelajaran berhasil ditambahkan');
+    }
+
+    // form edit capaian
+    public function editCapaian($id)
+    {
+        $capaian = CapaianPembelajaran::findOrFail($id);
+        $mapel = Mapel::all();
+
+        return view('admin.capaian_edit', compact('capaian', 'mapel'));
+    }
+
+    // update capaian
+    public function updateCapaian(Request $request, $id)
+    {
+        $request->validate([
+            'id_mapel' => 'required|exists:mapels,id',
+            'tingkat' => 'required|integer',
+            'deskripsi' => 'required',
+        ]);
+
+        $capaian = CapaianPembelajaran::findOrFail($id);
+
+        $capaian->update([
+            'id_mapel' => $request->id_mapel,
+            'tingkat' => $request->tingkat,
+            'deskripsi' => $request->deskripsi,
+        ]);
+
+        return redirect()->route('admin.capaian')
+            ->with('success', 'Capaian pembelajaran berhasil diupdate');
+    }
+
+    public function deleteCapaian($id)
+    {
+        $capaian = CapaianPembelajaran::findOrFail($id);
+
+        $capaian->delete();
+
+        return redirect()->route('admin.capaian')
+            ->with('success', 'Capaian pembelajaran berhasil dihapus');
+    }
 }

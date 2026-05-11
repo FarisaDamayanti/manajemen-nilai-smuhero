@@ -1,113 +1,225 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile Guru</title>
+    <title>EduPoint - Profil Guru</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
-        body {
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --secondary: #64748b;
+            --danger: #ef4444;
+            --bg-body: #f8fafc;
+            --text-main: #1e293b;
+            --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
+        * {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #667eea, #764ba2);
-            height: 100vh;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
         }
 
-        .card {
+        .profile-card {
             background: white;
-            padding: 30px;
-            border-radius: 12px;
-            width: 350px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 450px;
+            border-radius: 32px;
+            padding: 40px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            position: relative;
+            border: 1px solid #eef2ff;
+        }
+
+        /* Banner Dekoratif */
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
+            border-radius: 32px 32px 0 0;
+            z-index: 1;
+        }
+
+        .profile-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Foto Profil */
+        .avatar-wrapper {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 20px;
+            padding: 5px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .avatar-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
 
         h2 {
-            text-align: center;
-            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+            color: var(--text-main);
         }
 
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 12px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            outline: none;
-            transition: 0.3s;
+        .nip-text {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+            display: block;
+            font-weight: 500;
         }
 
-        input:focus, textarea:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 5px rgba(102,126,234,0.5);
+        /* Info Detail */
+        .info-grid {
+            background: #f1f5f9;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: grid;
+            gap: 12px;
         }
 
-        textarea {
-            resize: none;
-            height: 80px;
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
         }
 
-        button {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            background: #667eea;
-            color: white;
-            border-radius: 8px;
+        .info-label {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .info-value {
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        /* Tombol */
+        .action-buttons {
+            display: grid;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 14px;
+            border-radius: 14px;
+            font-size: 0.95rem;
+            font-weight: 700;
             cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: none;
+            font-family: inherit;
         }
 
-        button:hover {
-            background: #5a67d8;
+        .btn-edit {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
         }
 
-        .error {
-            background: #ffe5e5;
-            color: #d8000c;
-            padding: 10px;
-            border-radius: 6px;
-            margin-bottom: 10px;
-            text-align: center;
+        .btn-edit:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-logout {
+            background: #fff;
+            color: var(--danger);
+            border: 2px solid #fee2e2;
+        }
+
+        .btn-logout:hover {
+            background: #fee2e2;
+        }
+
+        /* Link Kembali */
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            color: var(--primary);
         }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h2>Lengkapi Profil Guru</h2>
+<div class="profile-card">
+    <div class="profile-content">
+        <div class="avatar-wrapper">
+            <img src="{{ $guru->foto ? asset('storage/'.$guru->foto) : 'https://ui-avatars.com/api/?name='.urlencode($user->name).'&background=4f46e5&color=fff' }}" alt="Foto Guru">
+        </div>
 
-    @if(session('error'))
-        <div class="error">{{ session('error') }}</div>
-    @endif
+        <h2>{{ $user->name }}</h2>
+        <span class="nip-text">NIP. {{ $guru->nip ?? 'Belum Diatur' }}</span>
 
-   <form method="POST" action="/guru/profile">
-    @csrf
+        <div class="info-grid">
+            <div class="info-row">
+                <span class="info-label">Mata Pelajaran</span>
+                <span class="info-value">{{ $guru->mapel->nama_mapel ?? 'Belum diatur' }}</span>
+            </div>
 
-    <input type="text" name="nip" placeholder="NIP" value="{{ $guru->nip ?? '' }}">
+            <div class="info-row">
+                <span class="info-label">Alamat</span>
+                <span class="info-value">{{ $guru->alamat ?? 'Belum diatur' }}</span>
+            </div>
 
-    <input type="text" name="nama_lengkap" placeholder="Nama Lengkap" value="{{ auth()->user()->name ?? '' }}">
+            <div class="info-row">
+                <span class="info-label">No. HP</span>
+                <span class="info-value">{{ $guru->no_hp ?? 'Belum diatur' }}</span>
+            </div>
+        </div>
 
-    <textarea name="alamat" placeholder="Alamat">{{ $guru->alamat ?? '' }}</textarea>
+        <div class="action-buttons">
+            <a href="{{ route('guru.profile.edit') }}" class="btn btn-edit">
+                Edit Profil
+            </a>
+            
+            <form method="POST" action="{{ route('logout') }}" style="width: 100%;">
+                @csrf
+                <button type="submit" class="btn btn-logout" style="width: 100%;">
+                    Log Out
+                </button>
+            </form>
+        </div>
 
-    <input type="text" name="no_hp" placeholder="No HP" value="{{ $guru->no_hp ?? '' }}">
-
-    <!-- DROPDOWN MAPEL -->
-    <select name="id_mapel" required>
-        <option value="">-- Pilih Mata Pelajaran --</option>
-        @foreach($mapels as $mapel)
-            <option value="{{ $mapel->id }}"
-                {{ isset($guru) && $guru->id_mapel == $mapel->id ? 'selected' : '' }}>
-                {{ $mapel->nama_mapel }}
-            </option>
-        @endforeach
-    </select>
-
-    <button type="submit">Simpan</button>
-</form>
+        <a href="{{ route('guru.dashboard') }}" class="back-link">← Kembali ke Dashboard</a>
+    </div>
 </div>
 
 </body>

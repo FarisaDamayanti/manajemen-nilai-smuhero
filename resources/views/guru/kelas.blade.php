@@ -1,11 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Guru - Manajemen Sekolah</title>
+    <title>EduPoint - Kelas Saya</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --secondary: #64748b;
+            --bg-body: #f8fafc;
+            --text-main: #1e293b;
+            --shadow-sm: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,400 +24,368 @@
         }
 
         body {
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
-            background: #f1f5f9;
-            color: #0f172a;
-            line-height: 1.5;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-body);
+            background-image: radial-gradient(at 0% 0%, rgba(79, 70, 229, 0.05) 0px, transparent 50%), 
+                              radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.05) 0px, transparent 50%);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
         }
 
-        /* Navbar */
+        /* Navbar Modern */
         .navbar {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            color: white;
-            padding: 0 32px;
-            height: 70px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0 40px;
+            height: 80px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
-            z-index: 10;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
         }
 
-        .nav-left {
+        .brand {
             display: flex;
             align-items: center;
-            gap: 40px;
+            gap: 12px;
+            text-decoration: none;
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            border-radius: 8px;
+        .brand-logo {
+            font-size: 28px;
+            background: white;
+            width: 45px;
+            height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            font-size: 18px;
-            color: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
         }
 
-        .logo-text {
-            font-weight: 700;
-            font-size: 1.2rem;
-            letter-spacing: -0.3px;
-            color: white;
+        .brand-name {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary), #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .nav-links {
             display: flex;
-            gap: 28px;
-            align-items: center;
+            gap: 32px;
+            margin-left: 50px;
         }
 
         .nav-links a {
-            color: #e2e8f0;
             text-decoration: none;
-            font-weight: 500;
-            transition: all 0.2s ease;
+            color: var(--secondary);
+            font-weight: 600;
             font-size: 0.95rem;
-            padding-bottom: 6px;
-            border-bottom: 2px solid transparent;
+            transition: 0.3s;
+            position: relative;
         }
 
-        .nav-links a:hover {
-            color: white;
-            border-bottom-color: rgba(255, 255, 255, 0.5);
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
         }
 
-        .nav-links a.active {
-            color: white;
-            border-bottom-color: #3b82f6;
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 10px;
         }
 
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .user-name {
-            font-size: 0.9rem;
-            color: #e2e8f0;
-        }
-
-        .logout-form button {
-            background: rgba(239, 68, 68, 0.85);
-            color: white;
+        .logout-btn {
+            background: #fee2e2;
+            color: #ef4444;
+            padding: 8px 18px;
+            border-radius: 10px;
             border: none;
-            padding: 6px 16px;
-            border-radius: 40px;
+            font-weight: 600;
             cursor: pointer;
-            font-weight: 500;
-            font-size: 0.85rem;
-            transition: 0.2s;
+            transition: 0.3s;
         }
 
-        .logout-form button:hover {
+        .logout-btn:hover {
             background: #ef4444;
+            color: white;
         }
 
-        /* Container */
+        /* Main Container */
         .container {
-            max-width: 1400px;
-            margin: 28px auto;
+            max-width: 1200px;
+            margin: 40px auto;
             padding: 0 24px;
         }
 
-        /* Card */
-        .card {
-            background: white;
-            border-radius: 16px;
-            padding: 24px 28px;
-            margin-bottom: 28px;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-            border: 1px solid #eef2ff;
-        }
-
-        h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #0f172a;
-            margin-bottom: 8px;
-        }
-
-        .role-badge {
-            display: inline-block;
-            background: #eef2ff;
-            color: #1e40af;
-            padding: 4px 12px;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-top: 4px;
-        }
-
-        .mapel-badge {
-            display: inline-block;
-            background: #fef3c7;
-            color: #d97706;
-            padding: 4px 12px;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-left: 8px;
-        }
-
-        h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #0f172a;
-            border-left: 4px solid #3b82f6;
-            padding-left: 14px;
-        }
-
-        h4 {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: #1e293b;
-        }
-
-        /* Button Kembali */
-        .btn-back {
-            background: #64748b;
-            color: white;
-            padding: 8px 18px;
-            border-radius: 8px;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            display: inline-flex;
+        .page-header {
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 6px;
-            transition: all 0.2s ease;
         }
 
-        .btn-back:hover {
-            background: #475569;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 6px -1px rgba(71, 85, 105, 0.2);
+        .page-title h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-main);
         }
 
-        /* Kelas Grid */
+        .page-title p {
+            color: var(--secondary);
+            font-size: 1rem;
+        }
+
+        /* Grid Kelas */
         .kelas-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 16px;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
         }
 
         .kelas-card {
             background: white;
+            border-radius: 24px;
+            padding: 30px;
             border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 18px;
-            transition: 0.2s;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-
-        .kelas-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-            border-color: #cbd5e1;
-        }
-
-        .kelas-card .info p {
-            font-size: 0.85rem;
-            color: #475569;
-            margin-bottom: 6px;
-        }
-
-        .progress {
-            height: 8px;
-            background: #e2e8f0;
-            border-radius: 50px;
-            margin: 12px 0;
+            transition: all 0.3s ease;
+            position: relative;
             overflow: hidden;
         }
 
-        .progress .bar {
-            height: 100%;
-            background: #3b82f6;
-            border-radius: 50px;
-            transition: width 0.3s ease;
+        .kelas-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
         }
 
-        .btn-mini {
-            display: inline-block;
-            font-size: 0.75rem;
-            padding: 6px 14px;
-            background: #3b82f6;
-            color: white;
-            border-radius: 6px;
-            text-decoration: none;
-            margin-top: 10px;
-            transition: 0.2s;
-            font-weight: 500;
+        .kelas-card h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary);
         }
 
-        .btn-mini:hover {
-            background: #2563eb;
-            transform: translateY(-1px);
-        }
-
-        .empty-row {
-            text-align: center;
-            color: #94a3b8;
-            padding: 40px;
-            font-style: italic;
-            background: #f8fafc;
-            border-radius: 12px;
-            grid-column: 1/-1;
-        }
-
-        /* Footer buttons */
-        .footer-buttons {
-            margin-top: 24px;
-            padding-top: 20px;
-            border-top: 1px solid #e2e8f0;
+        .info-list {
             display: flex;
-            justify-content: flex-end;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
         }
 
-        /* Responsif */
-        @media (max-width: 900px) {
-            .kelas-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 16px;
-            }
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: #475569;
         }
 
-        @media (max-width: 700px) {
-            .navbar {
-                padding: 0 20px;
-                flex-wrap: wrap;
-                height: auto;
-                padding: 12px 20px;
-                gap: 10px;
-            }
-            .nav-left {
-                flex-wrap: wrap;
-                gap: 16px;
-            }
-            .container {
-                padding: 0 16px;
-            }
-            .card {
-                padding: 18px;
-            }
-            .kelas-grid {
-                grid-template-columns: 1fr;
-            }
-            .footer-buttons {
-                justify-content: stretch;
-            }
-            .footer-buttons .btn-back {
-                width: 100%;
-                justify-content: center;
-            }
+        .info-item b {
+            color: var(--text-main);
+        }
+
+        /* Progress Bar Modern */
+        .progress-wrapper {
+            margin: 20px 0;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .progress-bg {
+            height: 10px;
+            background: #f1f5f9;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), #8b5cf6);
+            border-radius: 20px;
+            transition: width 0.5s ease;
+        }
+
+        /* Buttons */
+        .btn-manage {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .btn-manage:hover {
+            background: var(--primary-hover);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: white;
+            color: var(--secondary);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid #e2e8f0;
+            transition: 0.3s;
+        }
+
+        .btn-back:hover {
+            background: #f8fafc;
+            color: var(--text-main);
+            border-color: #cbd5e1;
+        }
+
+        .empty-state {
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 60px;
+            background: white;
+            border-radius: 24px;
+            border: 2px dashed #e2e8f0;
+        }
+
+        .profile-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: 0.3s;
+        }
+
+        .profile-avatar:hover {
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .navbar { padding: 0 20px; }
+            .nav-links { display: none; }
+            .kelas-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-<div class="navbar">
-    <div class="nav-left">
-        <div class="logo">
-            <div class="logo-icon">G</div>
-            <span class="logo-text">Guru</span>
-        </div>
-
+<nav class="navbar">
+    <div style="display: flex; align-items: center;">
+        <a href="#" class="brand">
+            <div class="brand-logo">🎓</div>
+            <div class="brand-name">EduPoint</div>
+        </a>
         <div class="nav-links">
             <a href="{{ route('guru.dashboard') }}">Dashboard</a>
-            <a href="{{ route('guru.kelas') }}" class="active">Kelas</a>
+            <a href="{{ route('guru.kelas') }}" class="active">Manajemen Kelas</a>
         </div>
     </div>
 
-    <div class="user-info">
-        <span class="user-name">{{ auth()->user()->name }}</span>
-        <form class="logout-form" method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit">Logout</button>
-        </form>
+    <div class="user-section">
+        <a href="{{ route('guru.profile') }}">
+        <img 
+            src="{{ auth()->user()->guru && auth()->user()->guru->foto 
+                ? asset('storage/'.auth()->user()->guru->foto) 
+                : 'https://ui-avatars.com/api/?name='.urlencode(auth()->user()->name) }}" 
+            alt="Profile"
+            class="profile-avatar">
+    </a>
     </div>
-</div>
+</nav>
 
 <div class="container">
-    <!-- Daftar Kelas -->
-    <div class="card">
-        <h3>🏫 Kelas Saya</h3>
-        
-        @php
-            $totalSiswaAll = 0;
-            $totalNilaiMasuk = 0;
-        @endphp
-
-        <div class="kelas-grid">
-            @forelse($kelas as $k)
-                @php
-                    $totalSiswaKelas = $k->siswa->count();
-                    $totalSiswaAll += $totalSiswaKelas;
-                    
-                    $nilaiMasukKelas = $k->siswa->filter(function($s) use ($nilai) {
-                        return isset($nilai[$s->id]) && !is_null($nilai[$s->id]->nilai);
-                    })->count();
-                    $totalNilaiMasuk += $nilaiMasukKelas;
-                    
-                    $persentase = $totalSiswaKelas > 0 ? ($nilaiMasukKelas / $totalSiswaKelas) * 100 : 0;
-                    
-                    $rataKelas = $k->siswa->avg(function($s) use ($nilai) {
-                        return isset($nilai[$s->id]) && !is_null($nilai[$s->id]->nilai) ? $nilai[$s->id]->nilai : null;
-                    }) ?? 0;
-                @endphp
-
-                <div class="kelas-card">
-                    <h4>{{ $k->nama_kelas }}</h4>
-                    
-                    <div class="info">
-                        <p>👨‍🎓 <b>{{ $totalSiswaKelas }}</b> Siswa</p>
-                        <p>📝 <b>{{ $nilaiMasukKelas }}</b> Nilai Terisi</p>
-                        <p>⭐ Rata-rata: <b>{{ number_format($rataKelas, 1) }}</b></p>
-                    </div>
-
-                    <div class="progress">
-                        <div class="bar" style="width: {{ $persentase }}%;"></div>
-                    </div>
-                    <div style="font-size: 0.7rem; color: #64748b; text-align: right; margin-top: 4px;">
-                        {{ number_format($persentase, 0) }}% terisi
-                    </div>
-
-                    <a href="{{ route('guru.kelas.lihat', $k->id) }}" class="btn-mini">Kelola Nilai</a>
-                </div>
-            @empty
-                <div class="empty-row">
-                    Belum ada kelas yang diampu
-                </div>
-            @endforelse
+    <div class="page-header">
+        <div class="page-title">
+            <h2>🏫 Daftar Kelas</h2>
+            <p>Kelola nilai dan pantau statistik tiap kelas Anda.</p>
         </div>
+        <a href="{{ route('guru.dashboard') }}" class="btn-back">
+            ← Kembali
+        </a>
+    </div>
 
-        <!-- Tombol Kembali -->
-        <div class="footer-buttons">
-            <a href="{{ route('guru.dashboard') }}" class="btn-back">
-                Kembali
-            </a>
-        </div>
+    <div class="kelas-grid">
+        @forelse($kelas as $k)
+            @php
+                $totalSiswaKelas = $k->siswa->count();
+                $nilaiMasukKelas = $k->siswa->filter(function($s) use ($nilai) {
+                    return isset($nilai[$s->id]) && !is_null($nilai[$s->id]->nilai);
+                })->count();
+                $persentase = $totalSiswaKelas > 0 ? ($nilaiMasukKelas / $totalSiswaKelas) * 100 : 0;
+                $rataKelas = $k->siswa->avg(function($s) use ($nilai) {
+                    return isset($nilai[$s->id]) && !is_null($nilai[$s->id]->nilai) ? $nilai[$s->id]->nilai : null;
+                }) ?? 0;
+            @endphp
+
+            <div class="kelas-card">
+                <h4>{{ $k->nama_kelas }}</h4>
+                
+                <div class="info-list">
+                    <div class="info-item">
+                        <span>👥</span>
+                        <span>Total Siswa: <b>{{ $totalSiswaKelas }}</b></span>
+                    </div>
+                    <div class="info-item">
+                        <span>📝</span>
+                        <span>Nilai Terisi: <b>{{ $nilaiMasukKelas }}</b></span>
+                    </div>
+                    <div class="info-item">
+                        <span>⭐</span>
+                        <span>Rata-rata: <b>{{ number_format($rataKelas, 1) }}</b></span>
+                    </div>
+                </div>
+
+                <div class="progress-wrapper">
+                    <div class="progress-header">
+                        <span>Progress Penilaian</span>
+                        <span>{{ number_format($persentase, 0) }}%</span>
+                    </div>
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: {{ $persentase }}%;"></div>
+                    </div>
+                </div>
+
+                <a href="{{ route('guru.kelas.lihat', $k->id) }}" class="btn-manage">
+                    Kelola Nilai Kelas
+                </a>
+            </div>
+        @empty
+            <div class="empty-state">
+                <div style="font-size: 3rem; margin-bottom: 10px;">📂</div>
+                <h3 style="color: #64748b;">Belum ada kelas pengampu</h3>
+                <p style="color: #94a3b8;">Silakan hubungi admin jika jadwal belum muncul.</p>
+            </div>
+        @endforelse
     </div>
 </div>
 

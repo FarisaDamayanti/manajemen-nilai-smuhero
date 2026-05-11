@@ -60,11 +60,18 @@ Route::post('/mapel/store', [AdminController::class, 'storeMapel'])->name('mapel
 Route::get('/siswa', [AdminController::class, 'siswa'])->name('admin.siswa');
 Route::get('/siswa/create/{id_kelas}', [AdminController::class, 'createSiswa'])->name('siswa.create');
 Route::post('/siswa/store', [AdminController::class, 'storeSiswa'])->name('siswa.store');
+Route::get('/siswa/detail/{id}', [AdminController::class, 'detailSiswa'])->name('siswa.detail');
+Route::get('/siswa/edit/{id}', [AdminController::class, 'editSiswa'])->name('siswa.edit');
+Route::put('/siswa/update/{id}', [AdminController::class, 'updateSiswa'])->name('siswa.update');
+Route::delete('/siswa/delete/{id}', [AdminController::class, 'deleteSiswa'])->name('siswa.delete');
 
 // capaian pembelajaran
 Route::get('/admin/capaian', [AdminController::class, 'capaian'])->name('admin.capaian');
 Route::get('/admin/capaian/create', [AdminController::class, 'createCapaian'])->name('admin.capaian.create');
 Route::post('/admin/capaian/store', [AdminController::class, 'storeCapaian'])->name('admin.capaian.store');
+Route::get('/capaian/edit/{id}', [AdminController::class, 'editCapaian'])->name('capaian.edit');
+Route::post('/capaian/update/{id}', [AdminController::class, 'updateCapaian'])->name('capaian.update');
+Route::delete('/capaian/delete/{id}', [AdminController::class, 'deleteCapaian'])->name('capaian.delete');
 });
 
 //role guru
@@ -78,6 +85,12 @@ Route::get('/kelas/{id}', [GuruController::class, 'lihatKelas'])->name('guru.kel
 Route::get('/nilai/{id_siswa}', [GuruController::class, 'inputNilai'])->name('guru.nilai.get');
 Route::post('/nilai', [GuruController::class, 'storeNilai'])->name('guru.nilai');
 
-Route::get('/profile', [GuruController::class, 'profile'])->name('guru.profile');
-Route::post('/profile', [GuruController::class, 'storeProfile']);
+// // create profile
+// Route::get('/profile', [GuruController::class, 'profile'])->name('guru.profile');
+// Route::post('/profile', [GuruController::class, 'createProfile'])->name('guru.profile.update');
+
+// update profile
+Route::get('/profile', [GuruController::class, 'getProfile'])->name('guru.profile');
+Route::get('/guru/profile/edit', [GuruController::class, 'editProfile'])->name('guru.profile.edit');
+Route::post('/profile', [GuruController::class, 'updateProfile'])->name('guru.profile.update');
 });

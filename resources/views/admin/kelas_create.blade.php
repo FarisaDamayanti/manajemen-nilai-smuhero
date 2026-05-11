@@ -1,49 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Kelas</title>
+    <title>EduPoint - Tambah Kelas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --primary-dark: #0f172a;
+            --bg-body: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.04), 0 4px 6px -4px rgb(0 0 0 / 0.04);
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #f1f5f9;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-body);
+            color: var(--text-main);
             margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
         }
 
         .container {
-            max-width: 600px;
-            margin: 60px auto;
+            max-width: 500px;
+            width: 90%;
             background: white;
-            padding: 24px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid #eef2ff;
         }
 
         h2 {
-            margin-bottom: 20px;
-            border-left: 4px solid #3b82f6;
-            padding-left: 10px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+            color: var(--primary-dark);
+            letter-spacing: -0.5px;
+            text-align: center;
         }
 
         label {
             display: block;
-            margin-bottom: 6px;
-            font-weight: bold;
-            color: #334155;
+            margin-bottom: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text-main);
         }
 
         input {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 16px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            border: 2px solid #f1f5f9;
+            border-radius: 14px;
             box-sizing: border-box;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            background: #f8fafc;
         }
 
-        /* Button group - dua tombol sejajar */
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+        }
+
+        /* Group Tombol */
         .button-group {
             display: flex;
             gap: 12px;
@@ -51,49 +83,65 @@
         }
 
         .btn {
-            padding: 10px 16px;
+            padding: 14px 20px;
             border: none;
-            border-radius: 8px;
+            border-radius: 14px;
             cursor: pointer;
             text-decoration: none;
             text-align: center;
-            font-size: 14px;
-            font-weight: 500;
-            transition: 0.2s;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
             flex: 1;
         }
 
         .btn-back {
-            background: #64748b;
-            color: white;
-            display: inline-block;
+            background: white;
+            color: var(--text-muted);
+            border: 2px solid #f1f5f9;
         }
 
         .btn-back:hover {
-            background: #475569;
+            background: #f1f5f9;
+            color: var(--primary-dark);
         }
 
         .btn-simpan {
-            background: #3b82f6;
+            background: var(--primary);
             color: white;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
         }
 
         .btn-simpan:hover {
-            background: #2563eb;
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(79, 70, 229, 0.3);
         }
 
+        /* Error Style */
         .error {
-            color: #dc2626;
-            font-size: 0.85rem;
-            margin-bottom: 10px;
             background: #fef2f2;
-            padding: 10px;
-            border-radius: 8px;
+            border: 1px solid #fecaca;
+            color: #b91c1c;
+            padding: 16px;
+            border-radius: 14px;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
         }
 
         .error ul {
             margin: 0;
             padding-left: 20px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 24px;
+            }
+            .button-group {
+                flex-direction: column-reverse;
+            }
         }
     </style>
 </head>
@@ -101,9 +149,9 @@
 
 <div class="container">
 
-    <h2>Tambah Kelas</h2>
+    <h2>Tambah Kelas Baru</h2>
 
-    {{-- error validation --}}
+    {{-- Alert Error Validation --}}
     @if ($errors->any())
         <div class="error">
             <ul>
@@ -117,15 +165,19 @@
     <form action="{{ route('kelas.store') }}" method="POST">
         @csrf
 
-        <label>Nama Kelas</label>
-        <input type="text" name="nama_kelas" placeholder="Contoh: X IPA 1" value="{{ old('nama_kelas') }}" required>
-        <label>Tingkatan Kelas</label>
-        <input type="text" name="tingkat" placeholder="Contoh: 10, 11, 12" value="{{ old('tingkat') }}" required>
+        <div class="form-group">
+            <label>Nama Kelas</label>
+            <input type="text" name="nama_kelas" placeholder="Misal: XII RPL 1" value="{{ old('nama_kelas') }}" required>
+        </div>
 
-        <!-- Button group: Kembali di kiri, Simpan di kanan -->
+        <div class="form-group">
+            <label>Tingkatan</label>
+            <input type="text" name="tingkat" placeholder="Misal: 12" value="{{ old('tingkat') }}" required>
+        </div>
+
         <div class="button-group">
-            <a href="{{ route('admin.kelas') }}" class="btn btn-back">Kembali</a>
-            <button type="submit" class="btn btn-simpan">Simpan Kelas</button>
+            <a href="{{ route('admin.kelas') }}" class="btn btn-back">Batal</a>
+            <button type="submit" class="btn btn-simpan">Simpan Data</button>
         </div>
     </form>
 

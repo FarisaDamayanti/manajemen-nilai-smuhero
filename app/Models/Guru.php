@@ -15,7 +15,8 @@ class Guru extends Model
         'nip',
         'nama_lengkap',
         'alamat',
-        'no_hp'
+        'no_hp',
+        'foto'
     ];
 
     public function user()

@@ -1,11 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Kelas - Manajemen Sekolah</title>
+    <title>EduPoint - Detail Kelas</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #0f172a;
+            --accent: #8b5cf6;
+            --success: #10b981;
+            --bg-body: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --shadow-sm: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+            --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,502 +28,307 @@
         }
 
         body {
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
-            background: #f1f5f9;
-            color: #0f172a;
-            line-height: 1.5;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
         }
 
-        /* Navbar */
+        /* Navbar Modern */
         .navbar {
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             color: white;
-            padding: 0 32px;
-            height: 70px;
+            padding: 0 40px;
+            height: 80px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
-            z-index: 10;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
 
         .nav-left {
             display: flex;
             align-items: center;
-            gap: 40px;
+            gap: 50px;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
+            text-decoration: none;
         }
 
         .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            border-radius: 8px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            font-size: 18px;
+            font-weight: 800;
+            font-size: 20px;
             color: white;
+            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
         }
 
         .logo-text {
-            font-weight: 700;
-            font-size: 1.2rem;
-            letter-spacing: -0.3px;
-            color: white;
+            font-weight: 800;
+            font-size: 1.4rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #fff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .nav-links {
             display: flex;
-            gap: 28px;
-            align-items: center;
+            gap: 32px;
         }
 
         .nav-links a {
-            color: #e2e8f0;
+            color: #94a3b8;
             text-decoration: none;
-            font-weight: 500;
-            transition: all 0.2s ease;
+            font-weight: 600;
             font-size: 0.95rem;
-            padding-bottom: 6px;
-            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover, .nav-links a.active {
             color: white;
-            border-bottom-color: rgba(255, 255, 255, 0.5);
         }
 
-        .nav-links a.active {
-            color: white;
-            border-bottom-color: #3b82f6;
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 10px;
         }
 
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .logout-form button {
-            background: rgba(239, 68, 68, 0.85);
-            color: white;
-            border: none;
-            padding: 6px 16px;
-            border-radius: 40px;
-            cursor: pointer;
-            font-weight: 500;
+        .logout-btn {
+            background: rgba(239, 68, 68, 0.1);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 700;
             font-size: 0.85rem;
-            transition: 0.2s;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
-        .logout-form button:hover {
+        .logout-btn:hover {
             background: #ef4444;
+            color: white;
         }
 
-        /* Container */
+        /* Main Content */
         .container {
-            max-width: 1400px;
-            margin: 28px auto;
+            max-width: 1200px;
+            margin: 40px auto;
             padding: 0 24px;
         }
 
-        /* Card */
         .card {
             background: white;
-            border-radius: 16px;
-            padding: 24px 28px;
-            margin-bottom: 28px;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-            border: 1px solid #eef2ff;
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid #f1f5f9;
         }
 
-        .header-section {
+        .header-title {
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
+            margin-bottom: 32px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f8fafc;
         }
 
         h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-size: 1.6rem;
+            font-weight: 800;
             color: #0f172a;
-            border-left: 5px solid #3b82f6;
-            padding-left: 14px;
-            margin: 0;
+            letter-spacing: -0.5px;
         }
 
-        /* Button Styles */
-        .btn-back {
-            background: #64748b;
-            color: white;
-            padding: 8px 18px;
-            border-radius: 8px;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            font-family: inherit;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s ease;
-        }
-
-        .btn-back:hover {
-            background: #475569;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 6px -1px rgba(71, 85, 105, 0.2);
-        }
-
-        .btn-primary {
-            background: #3b82f6;
-            color: white;
-            padding: 8px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 500;
-            display: inline-block;
-            transition: 0.2s;
-            font-size: 0.9rem;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-primary:hover {
-            background: #2563eb;
-            transform: translateY(-1px);
-        }
-
-        .btn-secondary {
-            background: #10b981;
-            color: white;
-            padding: 8px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 500;
-            display: inline-block;
-            transition: 0.2s;
-            font-size: 0.9rem;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-secondary:hover {
-            background: #059669;
-            transform: translateY(-1px);
-        }
-
-        /* Form Styles */
-        .form-group {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        select {
-            padding: 8px 12px;
-            border-radius: 8px;
-            border: 1px solid #cbd5e1;
-            background: white;
-            font-family: inherit;
-            font-size: 14px;
-            cursor: pointer;
-            transition: border-color 0.2s;
-            min-width: 250px;
-        }
-
-        select:hover {
-            border-color: #3b82f6;
-        }
-
-        select:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
-        /* Section Styles */
+        /* Section Styling */
         .section {
-            margin-bottom: 40px;
+            margin-bottom: 48px;
         }
 
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
             margin-bottom: 20px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #e2e8f0;
         }
 
         .section-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #1e293b;
+            font-size: 1.1rem;
+            font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
         }
 
         .section-title::before {
             content: '';
-            width: 4px;
-            height: 20px;
-            background: #3b82f6;
-            border-radius: 2px;
+            width: 5px;
+            height: 22px;
+            background: var(--primary);
+            border-radius: 10px;
         }
 
         /* Guru Grid */
         .guru-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
-            margin-top: 16px;
         }
 
         .guru-card {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
+            background: #f8fafc;
+            border: 1px solid #f1f5f9;
+            border-radius: 18px;
             padding: 20px;
-            transition: all 0.2s ease;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            transition: 0.3s;
         }
 
         .guru-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-            border-color: #cbd5e1;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: var(--shadow-md);
+            transform: translateY(-3px);
         }
 
         .guru-name {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1e293b;
-            margin-bottom: 8px;
-        }
-
-        .guru-mapel {
-            font-size: 13px;
-            color: #64748b;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 4px;
         }
 
         .badge-mapel {
             display: inline-block;
             padding: 4px 12px;
             background: #eef2ff;
-            color: #1e40af;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            font-weight: 500;
+            color: var(--primary);
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 12px;
         }
 
-        .guru-info {
-            font-size: 12px;
-            color: #94a3b8;
-            border-top: 1px solid #f1f5f9;
-            padding-top: 10px;
-            margin-top: 8px;
-        }
-
-        .empty-text {
-            color: #64748b;
-            font-style: italic;
-            padding: 40px;
-            text-align: center;
-            background: #f8fafc;
+        /* Form Controls */
+        select {
+            padding: 10px 16px;
             border-radius: 12px;
+            border: 2px solid #f1f5f9;
+            font-family: inherit;
+            font-size: 0.9rem;
+            min-width: 280px;
         }
 
-        /* Table Styles */
+        .btn-action {
+            padding: 10px 20px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-add { background: var(--primary); color: white; }
+        .btn-success { background: var(--secondary); color: white; }
+        .btn-back { background: #f1f5f9; color: var(--text-muted); }
+
+        /* Table */
         .table-wrapper {
-            overflow-x: auto;
-            border-radius: 12px;
-            margin-top: 20px;
-            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid #f1f5f9;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.9rem;
         }
 
         th {
             background: #f8fafc;
+            padding: 16px;
             text-align: left;
-            padding: 14px 16px;
-            font-weight: 600;
-            color: #1e293b;
-            border-bottom: 2px solid #e2e8f0;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         td {
-            padding: 12px 16px;
-            border-bottom: 1px solid #f0f2f5;
-            color: #334155;
+            padding: 16px;
+            border-top: 1px solid #f1f5f9;
+            font-size: 0.95rem;
         }
 
-        tr:hover td {
-            background-color: #fafcff;
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        .empty-row td {
-            text-align: center;
-            color: #94a3b8;
-            padding: 40px;
-            font-style: italic;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        /* Badge */
-        .badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        .badge-green {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        /* Footer button */
-        .footer-buttons {
-            margin-top: 24px;
-            padding-top: 20px;
-            border-top: 1px solid #e2e8f0;
+        /* Action Icons */
+        .action-group {
             display: flex;
-            justify-content: flex-end;
+            gap: 8px;
         }
 
-        /* Alert messages */
-        .alert {
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+        .icon-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
         }
 
-        .alert-success {
-            background: #dcfce7;
-            color: #166534;
-            border: 1px solid #bbf7d0;
-        }
+        .icon-detail { background: #e0e7ff; color: #4338ca; }
+        .icon-edit { background: #fef3c7; color: #d97706; }
+        .icon-delete { background: #fee2e2; color: #dc2626; }
 
-        .alert-danger {
-            background: #fee2e2;
-            color: #991b1b;
-            border: 1px solid #fecaca;
-        }
-
-        /* Responsive */
-        @media (max-width: 900px) {
-            .guru-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 16px;
-            }
-        }
+        .icon-btn:hover { transform: scale(1.1); }
 
         @media (max-width: 768px) {
-            .navbar {
-                padding: 0 20px;
-                flex-wrap: wrap;
-                height: auto;
-                padding: 12px 20px;
-                gap: 10px;
-            }
-            .nav-left {
-                flex-wrap: wrap;
-                gap: 16px;
-            }
-            .container {
-                padding: 0 16px;
-            }
-            .card {
-                padding: 18px;
-            }
-            .header-section {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .section-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .form-group {
-                width: 100%;
-                flex-direction: column;
-            }
-            select {
-                width: 100%;
-            }
-            .btn-primary, .btn-secondary, .btn-back {
-                width: 100%;
-                justify-content: center;
-                text-align: center;
-            }
-            th, td {
-                padding: 10px 12px;
-            }
-            .guru-grid {
-                grid-template-columns: 1fr;
-            }
-            .footer-buttons {
-                justify-content: stretch;
-            }
-            .footer-buttons .btn-back {
-                width: 100%;
-                justify-content: center;
-            }
+            .section-header, .header-title { flex-direction: column; align-items: flex-start; gap: 15px; }
+            select { width: 100%; }
+            .guru-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-<div class="navbar">
+<nav class="navbar">
     <div class="nav-left">
-        <div class="logo">
-            <div class="logo-icon">A</div>
-            <span class="logo-text">Admin</span>
-        </div>
+        <a href="{{ route('admin.dashboard') }}" class="logo">
+            <div class="logo-icon">🎓</div>
+            <span class="logo-text">EduPoint</span>
+        </a>
 
         <div class="nav-links">
-            <a href="{{ route('admin.dashboard') }}">Home</a>
+            <a href="{{ route('admin.dashboard') }}">Dashboard</a>
             <a href="{{ route('admin.kelas') }}" class="active">Kelas</a>
             <a href="{{ route('admin.mapel') }}">Mapel</a>
             <a href="{{ route('admin.guru') }}">Guru</a>
@@ -516,53 +336,42 @@
         </div>
     </div>
 
-    <div class="user-info">
-        <form class="logout-form" method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit">Logout</button>
-        </form>
-    </div>
-</div>
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit" class="logout-btn">Logout</button>
+    </form>
+</nav>
 
 <div class="container">
     <div class="card">
-        <div class="header-section">
-            <div class="header-left">
-                <h2>Detail Kelas: {{ $kelas->nama_kelas }}</h2>
-            </div>
+        <div class="header-title">
+            <h2>Detail Kelas: {{ $kelas->nama_kelas }}</h2>
+            <a href="{{ route('admin.kelas') }}" class="btn-action btn-back"> Kembali</a>
         </div>
 
         @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
+            <script>
+                Swal.fire({
+                    toast: true, position: 'top-end', icon: 'success',
+                    title: 'Berhasil!', text: 'Data telah diperbarui.',
+                    showConfirmButton: false, timer: 3000, timerProgressBar: true
+                });
+            </script>
         @endif
 
-        @if(session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
-
-        <!-- Section Guru -->
         <div class="section">
             <div class="section-header">
                 <div class="section-title">Guru Pengajar</div>
-                
-                <form action="{{ route('admin.assign.guru') }}" method="POST" class="form-group">
+                <form action="{{ route('admin.assign.guru') }}" method="POST" style="display:flex; gap:10px; flex-wrap:wrap;">
                     @csrf
                     <input type="hidden" name="id_kelas" value="{{ $kelas->id }}">
-                    
                     <select name="id_guru" required>
-                        <option value="">-- Pilih Guru untuk ditambah ke kelas--</option>
+                        <option value="">Pilih Guru Pengajar...</option>
                         @foreach($gurus as $g)
-                            <option value="{{ $g->id }}">
-                                {{ $g->nama_lengkap }} ({{ $g->mapel->nama_mapel ?? '-' }})
-                            </option>
+                            <option value="{{ $g->id }}">{{ $g->nama_lengkap }} ({{ $g->mapel->nama_mapel ?? '-' }})</option>
                         @endforeach
                     </select>
-                    
-                    <button type="submit" class="btn-primary">Tambah Guru</button>
+                    <button type="submit" class="btn-action btn-add">Plot Guru</button>
                 </form>
             </div>
 
@@ -571,66 +380,65 @@
                     @foreach($kelas->guru as $g)
                         <div class="guru-card">
                             <div class="guru-name">{{ $g->nama_lengkap }}</div>
-                            <div class="guru-mapel">
-                                <span class="badge-mapel">{{ $g->mapel->nama_mapel ?? '-' }}</span>
-                            </div>
-                            <div class="guru-info">
-                                NIP: {{ $g->nip ?? '-' }}
-                            </div>
+                            <span class="badge-mapel">{{ $g->mapel->nama_mapel ?? '-' }}</span>
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">NIP: {{ $g->nip ?? '-' }}</div>
                         </div>
                     @endforeach
                 </div>
             @else
-                <p class="empty-text">Belum ada guru yang ditugaskan</p>
+                <div style="text-align:center; padding:30px; background:#f8fafc; border-radius:18px; color:var(--text-muted);">
+                    Belum ada guru yang ditugaskan di kelas ini.
+                </div>
             @endif
         </div>
 
-        <!-- Section Siswa -->
         <div class="section">
             <div class="section-header">
                 <div class="section-title">Daftar Siswa</div>
-                
-                <a href="{{ route('siswa.create', $kelas->id) }}" class="btn-secondary">
-                    + Tambah Siswa
-                </a>
+                <a href="{{ route('siswa.create', $kelas->id) }}" class="btn-action btn-success">+ Tambah Siswa</a>
             </div>
 
             <div class="table-wrapper">
                 <table>
                     <thead>
                         <tr>
-                            <th width="50">No</th>
-                            <th>Nama Siswa</th>
-                            <th width="150">NIS</th>
-                            <th width="150">Nilai Rata-Rata</th>
+                            <th width="60">No</th>
+                            <th>NIS</th>
+                            <th>Nama Lengkap</th>
+                            <th>Rata-Rata</th>
+                            <th width="150">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($kelas->siswa as $s)
                             <tr>
-                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td>{{ $loop->iteration }}</td>
+                                <td style="font-weight:600;">{{ $s->nis }}</td>
                                 <td>{{ $s->nama_siswa }}</td>
-                                <td>{{ $s->nis }}</td>
                                 <td>
-                                    <span class="badge badge-green">
+                                    <span style="font-weight:700; color:var(--secondary);">
                                         {{ number_format($s->nilai_avg_nilai ?? 0, 2) }}
                                     </span>
                                 </td>
+                                <td>
+                                    <div class="action-group">
+                                        <a href="{{ route('siswa.detail', $s->id) }}" class="icon-btn icon-detail" title="Detail">👁️</a>
+                                        <a href="{{ route('siswa.edit', $s->id) }}" class="icon-btn icon-edit" title="Edit">✏️</a>
+                                        <form action="{{ route('siswa.delete', $s->id) }}" method="POST" onsubmit="return confirm('Hapus siswa ini?')">
+                                            @csrf @method('DELETE')
+                                            <button class="icon-btn icon-delete" title="Hapus">🗑️</button>
+                                        </form>
+                                    </div>
+                                </td>
                             </tr>
                         @empty
-                            <tr class="empty-row">
-                                <td colspan="4">Belum ada siswa yang terdaftar</td>
+                            <tr>
+                                <td colspan="5" style="text-align:center; padding:40px; color:var(--text-muted);">Belum ada siswa terdaftar.</td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
-            <!-- Tombol Kembali di bawah -->
-        <div class="footer-buttons">
-            <a href="{{ route('admin.kelas') }}" class="btn-back">
-                Kembali
-            </a>
-        </div>
         </div>
     </div>
 </div>

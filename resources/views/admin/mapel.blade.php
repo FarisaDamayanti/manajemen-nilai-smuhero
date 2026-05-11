@@ -1,283 +1,357 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Mapel - Manajemen Sekolah</title>
+    <title>EduPoint - Data Mata Pelajaran</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
-         * {
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #0f172a;
+            --accent: #8b5cf6;
+            --success: #10b981;
+            --bg-body: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --shadow-sm: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+            --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
         body {
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
-            background: #f1f5f9;
-            color: #0f172a;
-            line-height: 1.5;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
         }
 
-        /* Navbar */
+        /* Navbar Modern */
         .navbar {
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             color: white;
-            padding: 0 32px;
-            height: 70px;
+            padding: 0 40px;
+            height: 80px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
-            z-index: 10;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
 
         .nav-left {
             display: flex;
             align-items: center;
-            gap: 40px;
+            gap: 50px;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
         }
 
         .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            border-radius: 8px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            font-size: 18px;
+            font-weight: 800;
+            font-size: 20px;
             color: white;
+            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
         }
 
         .logo-text {
-            font-weight: 700;
-            font-size: 1.2rem;
-            letter-spacing: -0.3px;
-            color: white;
+            font-weight: 800;
+            font-size: 1.4rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #fff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .nav-links {
             display: flex;
-            gap: 28px;
-            align-items: center;
+            gap: 32px;
         }
 
         .nav-links a {
-            color: #e2e8f0;
+            color: #94a3b8;
             text-decoration: none;
-            font-weight: 500;
-            transition: all 0.2s ease;
+            font-weight: 600;
             font-size: 0.95rem;
-            padding-bottom: 6px;
-            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover, .nav-links a.active {
             color: white;
-            border-bottom-color: rgba(255, 255, 255, 0.5);
         }
 
-        .nav-links a.active {
-            color: white;
-            border-bottom-color: #3b82f6;
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 10px;
         }
 
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .logout-form button {
-            background: rgba(239, 68, 68, 0.85);
-            color: white;
-            border: none;
-            padding: 6px 16px;
-            border-radius: 40px;
-            cursor: pointer;
-            font-weight: 500;
+        .logout-btn {
+            background: rgba(239, 68, 68, 0.1);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 700;
             font-size: 0.85rem;
-            transition: 0.2s;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
-        .logout-form button:hover {
+        .logout-btn:hover {
             background: #ef4444;
+            color: white;
         }
 
+        /* Container & Card */
         .container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 20px;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 0 24px;
         }
 
         .card {
             background: white;
-            padding: 24px;
-            border-radius: 16px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid #f1f5f9;
         }
 
-        .card h2 {
-            display: inline-block;
-        }
-
-        .card .btn {
-            float: right;
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
         }
 
         h2 {
-            margin-bottom: 20px;
-            border-left: 4px solid #3b82f6;
-            padding-left: 10px;
-        }
-
-        .btn {
-            background: #3b82f6;
-            color: white;
-            padding: 8px 14px;
-            border-radius: 8px;
-            text-decoration: none;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-
-        .btn:hover {
-            background: #2563eb;
-        }
-
-        /* Footer button */
-        .footer-buttons {
-            margin-top: 24px;
-            padding-top: 20px;
-            border-top: 1px solid #e2e8f0;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -0.5px;
             display: flex;
-            justify-content: flex-end; /* Memaksa elemen flex ke kanan */
+            align-items: center;
+            gap: 12px;
         }
 
-        .footer-buttons .btn-back {
-            display: inline-flex; /* Pastikan tombol tetap inline-flex */
+        h2::before {
+            content: '';
+            width: 5px;
+            height: 24px;
+            background: var(--primary);
+            border-radius: 10px;
         }
-        .btn-back {
-            background: #64748b;
+
+        /* Buttons */
+        .btn-primary {
+            background: var(--primary);
             color: white;
-            padding: 6px 16px;
-            border-radius: 8px;
+            padding: 12px 24px;
+            border-radius: 14px;
             text-decoration: none;
-            font-weight: 500;
-            font-size: 0.85rem;
-            transition: 0.2s;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: 0.3s;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: var(--text-main);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-back {
+            background: #f1f5f9;
+            color: var(--text-muted);
+            padding: 10px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: 0.3s;
         }
 
         .btn-back:hover {
-            background: #475569;
-            transform: translateY(-1px);
+            background: #e2e8f0;
+            color: var(--text-main);
+        }
+
+        /* Table Styling */
+        .table-container {
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid #f1f5f9;
+            margin-bottom: 24px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            background: white;
         }
 
         th {
             background: #f8fafc;
+            padding: 16px 20px;
             text-align: left;
-            padding: 12px;
-            border-bottom: 2px solid #e2e8f0;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #f1f5f9;
         }
 
         td {
-            padding: 12px;
-            border-bottom: 1px solid #e2e8f0;
+            padding: 18px 20px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.95rem;
+            color: var(--text-main);
         }
 
-        tr:hover {
-            background: #f9fafb;
+        tr:last-child td {
+            border-bottom: none;
         }
 
-        .empty {
+        tr:hover td {
+            background-color: #fcfdfe;
+        }
+
+        .td-no {
+            font-weight: 700;
+            color: var(--text-muted);
+            width: 80px;
+        }
+
+        .td-name {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .empty-state {
+            padding: 60px 20px;
             text-align: center;
-            color: #94a3b8;
-            padding: 40px;
+            color: var(--text-muted);
+        }
+
+        .footer-action {
+            display: flex;
+            justify-content: flex-end;
+            padding-top: 20px;
+            border-top: 2px solid #f8fafc;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .card-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .btn-primary { width: 100%; justify-content: center; }
+            .navbar { padding: 0 20px; }
+            .nav-links { display: none; } /* Mobile optimization */
         }
     </style>
 </head>
-
 <body>
 
-<!-- NAVBAR -->
-<div class="navbar">
+<nav class="navbar">
     <div class="nav-left">
         <div class="logo">
-            <div class="logo-icon">A</div>
-            <span class="logo-text">Admin</span>
+            <div class="logo-icon">🎓</div>
+            <span class="logo-text">EduPoint</span>
         </div>
 
         <div class="nav-links">
-            <a href="{{ route('admin.dashboard') }}">Home</a>
+            <a href="{{ route('admin.dashboard') }}">Dashboard</a>
             <a href="{{ route('admin.kelas') }}">Kelas</a>
-            <a href="{{ route('admin.mapel') }}" class="active">Mapel</a>
+            <a href="{{ route('admin.mapel') }}"class="active">Mapel</a>
             <a href="{{ route('admin.guru') }}">Guru</a>
             <a href="{{ route('admin.capaian') }}">Capaian</a>
         </div>
     </div>
 
-    <div class="user-info">
-        <form class="logout-form" method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit">Logout</button>
-        </form>
-    </div>
-</div>
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit" class="logout-btn">Logout</button>
+    </form>
+</nav>
 
-<!-- CONTENT -->
 <div class="container">
+    @if(session('success'))
+        <script>
+            Swal.fire({
+                toast: true, position: 'top-end', icon: 'success',
+                title: 'Berhasil!', text: 'Data mata pelajaran disimpan.',
+                showConfirmButton: false, timer: 3000, timerProgressBar: true
+            });
+        </script>
+    @endif
+
     <div class="card">
-        
-        <h2>Data Mata Pelajaran</h2>
-
-        <!-- tombol tambah -->
-        <a href="{{ route('mapel.create') }}" class="btn">+ Tambah Mapel</a>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama Mapel</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                @forelse($mapel as $i => $m)
-                    <tr>
-                        <td>{{ $i + 1 }}</td>
-                        <td>{{ $m->nama_mapel }}</td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="2" class="empty">Belum ada data mapel</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-
-        <!-- Tombol Kembali di sini (di bawah tabel) -->
-        <div class="footer-buttons">
-            <a href="{{ route('admin.dashboard') }}" class="btn-back">
-                Kembali
+        <div class="card-header">
+            <h2>Mata Pelajaran</h2>
+            <a href="{{ route('mapel.create') }}" class="btn-primary">
+                <span>+</span> Tambah Mapel
             </a>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="td-no">No</th>
+                        <th>Nama Mata Pelajaran</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($mapel as $i => $m)
+                        <tr>
+                            <td class="td-no">{{ $i + 1 }}</td>
+                            <td class="td-name">{{ $m->nama_mapel }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="2" class="empty-state">
+                                <p>Belum ada data mata pelajaran yang tersedia.</p>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer-action">
+            <a href="{{ route('admin.dashboard') }}" class="btn-back"> Kembali ke Dashboard</a>
         </div>
     </div>
 </div>

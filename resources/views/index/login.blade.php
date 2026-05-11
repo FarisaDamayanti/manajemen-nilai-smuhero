@@ -1,198 +1,176 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Manajemen Sekolah</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - EduPoint Manajemen Sekolah</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-        body {
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+<style>
+/* --- STYLE DASAR TETAP DIPERTAHANKAN --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; background-color: #ffffff; }
+.container { display: flex; width: 100%; }
 
-        .card {
-            background: white;
-            padding: 40px 35px;
-            width: 100%;
-            max-width: 400px;
-            border-radius: 20px;
-            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.25);
-            transition: transform 0.2s;
-        }
+/* SISI KIRI */
+.left { flex: 1; display: flex; justify-content: center; align-items: center; padding: 60px; }
+.form-wrapper { width: 100%; max-width: 400px; }
 
-        .card:hover {
-            transform: translateY(-3px);
-        }
+.brand { display: flex; align-items: center; gap: 10px; margin-bottom: 30px; }
+.brand-logo { width: 40px; height: 40px; background: #6d8bb7; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #F2E199; font-size: 1.2rem; }
+.brand-name { font-weight: 700; font-size: 1.2rem; color: #191939; }
 
-        h2 {
-            text-align: center;
-            margin-bottom: 10px;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #1e293b;
-        }
+.welcome-text h2 { font-size: 2.2rem; font-weight: 700; color: #191939; margin-bottom: 8px; }
+.welcome-text p { color: #64748b; font-size: 0.95rem; margin-bottom: 35px; line-height: 1.5; }
 
-        .subtitle {
-            text-align: center;
-            color: #64748b;
-            font-size: 0.85rem;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #e2e8f0;
-        }
+.form-group { margin-bottom: 18px; position: relative; }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+input {
+width: 100%;
+padding: 14px 22px;
+border-radius: 50px;
+border: 1.5px solid #e2e8f0;
+font-size: 0.95rem;
+transition: all 0.3s ease;
+}
 
-        label {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #334155;
-            display: block;
-            margin-bottom: 6px;
-        }
+input:focus {
+outline: none;
+border-color: #6FB8E6;
+box-shadow: 0 0 0 4px rgba(111, 184, 230, 0.1);
+}
 
-        input {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1.5px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            transition: all 0.2s;
-            outline: none;
-            font-family: inherit;
-        }
+.is-invalid {
+border-color: #dc2626 !important;
+background-color: #fff1f2;
+box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1) !important;
+}
 
-        input:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
+.error-message {
+color: #dc2626;
+font-size: 0.75rem;
+margin-top: 5px;
+margin-left: 20px;
+font-weight: 500;
+display: none;
+}
 
-        .remember-group {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 25px;
-        }
+.error-message.show { display: block; }
 
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: normal;
-            font-size: 0.85rem;
-            color: #475569;
-            cursor: pointer;
-        }
+.forgot-password { display: block; text-align: right; font-size: 0.85rem; color: #1B3A68; text-decoration: none; margin: -8px 15px 25px 0; font-weight: 500; }
+.btn-login { width: 100%; padding: 14px; background: #36367a; color: white; border: none; border-radius: 50px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: 0.3s; }
+.btn-login:hover { background: #1e0b37; transform: translateY(-2px); }
 
-        .checkbox-label input {
-            width: auto;
-            margin: 0;
-            cursor: pointer;
-        }
+/* DIVIDER & SOCIAL LOGIN */
+.divider { display: flex; align-items: center; text-align: center; margin: 25px 0; color: #cbd5e1; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+.divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid #f1f5f9; }
+.divider:not(:empty)::before { margin-right: 1em; }
+.divider:not(:empty)::after { margin-left: 1em; }
+.social-login { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
+.social-item { width: 50px; height: 50px; border-radius: 50%; border: 1px solid #f1f5f9; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; }
+.register-link { text-align: center; font-size: 0.9rem; color: #64748b; }
+.register-link a { color: #1B3A68; text-decoration: none; font-weight: 600; }
 
-        .forgot-link {
-            font-size: 0.85rem;
-            color: #667eea;
-            text-decoration: none;
-        }
+/* SISI KANAN - DIPERBARUI UNTUK GAMBAR PNG */
+.right {
+flex: 1.2;
+margin: 0;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 0;
+overflow: hidden; /* Tambahkan ini agar elemen tidak keluar */
+}
 
-        .forgot-link:hover {
-            text-decoration: underline;
-        }
+.illustration-box {
+width: 100%;
+max-width: 450px; /* Diperlebar sedikit agar kartu tugas terlihat jelas */
+text-align: center;
+}
 
-        button {
-            width: 100%;
-            padding: 12px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
+/* --- TAMBAHAN STYLE UNTUK GAMBAR BARU --- */
+.new-illustration {
+width: 100%; /* Gambar akan memenuhi kotak */
+height: auto; /* Mempertahankan rasio aspek */
+margin-bottom: 20px; /* Jarak ke titik-titik di bawah */
+}
+/* --- AKHIR TAMBAHAN STYLE GAMBAR --- */
 
-        button:hover {
-            background: #556cd6;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 12px rgba(102, 126, 234, 0.3);
-        }
 
-        .error {
-            background: #fee2e2;
-            color: #dc2626;
-            text-align: center;
-            margin-top: 20px;
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 0.85rem;
-        }
-
-        .register-link {
-            text-align: center;
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid #e2e8f0;
-            font-size: 0.85rem;
-            color: #64748b;
-        }
-
-        .register-link a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .register-link a:hover {
-            text-decoration: underline;
-        }
-    </style>
+@media (max-width: 992px) { .right { display: none; } }
+</style>
 </head>
-
 <body>
 
-<div class="card">
-    <h2>Login</h2>
-    <div class="subtitle">
-        Masukkan kredensial Anda untuk mengakses sistem
+<div class="container">
+
+    <!-- GAMBAR (kiri) -->
+    <div class="left">
+        <img src="{{ asset('images/ilustrasi-login.jpeg') }}" 
+             alt="Ilustrasi EduPoint" 
+             class="new-illustration">
     </div>
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+    <!-- LOGIN (kanan) -->
+    <div class="right">
+        <div class="form-wrapper">
 
-        <div class="form-group">
-            <label>Alamat Email</label>
-            <input type="email" name="email" value="{{ old('email') }}" placeholder="contoh@email.com" required autofocus>
+            <div class="brand">
+                <div class="brand-logo">🎓</div>
+                <div class="brand-name">EduPoint</div>
+            </div>
+
+            <div class="welcome-text">
+                <h2>Welcome Back!</h2>
+                <p>Kelola data siswa dan  rekap nilai dalam <br> satu dashboard yang efisien.</p>
+            </div>
+
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+
+                <div class="form-group">
+                    <input type="email" name="email"
+                        class="{{ $errors->has('email') ? 'is-invalid' : '' }}"
+                        placeholder="Masukkan Email"
+                        value="{{ old('email') }}" required>
+
+                    @if($errors->has('email'))
+                        <span class="error-message show">{{ $errors->first('email') }}</span>
+                    @endif
+                </div>
+
+                <div class="form-group">
+                    <input type="password" name="password"
+                        class="{{ $errors->has('password') ? 'is-invalid' : '' }}"
+                        placeholder="Masukkan Kata Sandi" required>
+
+                    @if($errors->has('password'))
+                        <span class="error-message show">{{ $errors->first('password') }}</span>
+                    @endif
+                </div>
+
+                <a href="#" class="forgot-password">Lupa Password?</a>
+
+                <button type="submit" class="btn-login">Login</button>
+            </form>
+
+            <div class="divider">Atau masuk dengan</div>
+
+            <div class="social-login">
+                <div class="social-item">
+                    <img src="https://www.gstatic.com/images/branding/product/1x/googleg_48dp.png" width="20">
+                </div>
+                <div class="social-item">🔑</div>
+            </div>
+
+            <div class="register-link">
+                Belum punya akun? <a href="#">Hubungi Admin IT</a>
+            </div>
+
         </div>
-
-        <div class="form-group">
-            <label>Kata Sandi</label>
-            <input type="password" name="password" placeholder="Masukkan kata sandi" required>
-        </div>
-
-        <button type="submit">Login</button>
-    </form>
-
-    @if ($errors->any())
-        <div class="error">
-            {{ $errors->first() }}
-        </div>
-    @endif
+    </div>
 
 </div>
 

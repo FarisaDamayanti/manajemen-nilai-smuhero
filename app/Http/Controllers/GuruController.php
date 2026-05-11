@@ -127,8 +127,8 @@ class GuruController extends Controller
 
     public function kelas()
     {
-        $kelas = Kelas::all();
         $guru = Auth::user()->guru;
+        $kelas = $guru->kelas;
         $nilai = Nilai::where('id_mapel', $guru->id_mapel)
         ->get()
         ->keyBy('id_siswa');
@@ -190,5 +190,52 @@ class GuruController extends Controller
 }
 
     return view('guru.kelas_detail', compact('kelas', 'guru', 'nilai', 'siswa', 'filter'));
+}
+
+    public function getProfile()
+{
+    $user = Auth::user();
+    $guru = $user->guru;
+
+    if (!$guru) {
+        abort(403, 'Profil guru belum dibuat');
+    }
+
+    return view('guru.profile', compact('guru', 'user'));
+}
+
+    public function editProfile()
+{
+    $guru = Auth::user()->guru;
+
+    return view('guru.profile_edit', compact('guru'));
+}
+
+    public function updateProfile(Request $request)
+{
+    $guru = Auth::user()->guru;
+
+    $request->validate([
+        'nip' => 'required',
+        'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        'alamat' => 'nullable',
+        'no_hp' => 'string|nullable'
+    ]);
+
+    // upload foto
+    if ($request->hasFile('foto')) {
+        $file = $request->file('foto');
+        $path = $file->store('foto_guru', 'public');
+
+        $guru->foto = $path;
+    }
+
+    $guru->nip = $request->nip;
+    $guru->alamat = $request->alamat;
+    $guru->no_hp = $request->no_hp;
+    $guru->update();
+
+    return redirect()->route('guru.profile')
+            ->with('success', 'Profile berhasil diupdate');
 }
 }

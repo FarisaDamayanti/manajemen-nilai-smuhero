@@ -1,11 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Input Nilai - Manajemen Sekolah</title>
+    <title>EduPoint - Input Nilai</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --secondary: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --bg-body: #f8fafc;
+            --text-main: #1e293b;
+            --shadow-sm: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,184 +27,83 @@
         }
 
         body {
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
-            background: #f1f5f9;
-            color: #0f172a;
-            line-height: 1.5;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
         }
 
-        /* Navbar */
-        .navbar {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            color: white;
-            padding: 0 32px;
-            height: 70px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 18px;
-            color: white;
-        }
-
-        .logo-text {
-            font-weight: 700;
-            font-size: 1.2rem;
-            letter-spacing: -0.3px;
-            color: white;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 28px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: #e2e8f0;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            font-size: 0.95rem;
-            padding-bottom: 6px;
-            border-bottom: 2px solid transparent;
-        }
-
-        .nav-links a:hover {
-            color: white;
-            border-bottom-color: rgba(255, 255, 255, 0.5);
-        }
-
-        .nav-links a.active {
-            color: white;
-            border-bottom-color: #3b82f6;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .user-name {
-            font-size: 0.9rem;
-            color: #e2e8f0;
-        }
-
-        .logout-form button {
-            background: rgba(239, 68, 68, 0.85);
-            color: white;
-            border: none;
-            padding: 6px 16px;
-            border-radius: 40px;
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 0.85rem;
-            transition: 0.2s;
-        }
-
-        .logout-form button:hover {
-            background: #ef4444;
-        }
-
-        /* Container */
         .container {
-            max-width: 800px;
-            margin: 40px auto;
+            max-width: 700px;
+            margin: 60px auto;
             padding: 0 24px;
         }
 
-        /* Card */
+        /* Card Styling */
         .card {
             background: white;
-            border-radius: 20px;
-            padding: 32px 36px;
-            box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.02);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: var(--shadow-md);
             border: 1px solid #eef2ff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary), #8b5cf6);
         }
 
         h2 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #0f172a;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--text-main);
             margin-bottom: 8px;
-            border-left: 4px solid #3b82f6;
-            padding-left: 16px;
+            letter-spacing: -0.5px;
         }
 
         .subtitle {
-            color: #64748b;
-            font-size: 0.85rem;
-            margin-bottom: 28px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #e2e8f0;
+            color: var(--secondary);
+            font-size: 0.95rem;
+            margin-bottom: 32px;
         }
 
-        /* Info Guru */
-        .info-guru {
-            background: #f8fafc;
-            border-radius: 12px;
-            padding: 16px 20px;
-            margin-bottom: 28px;
+        /* Guru & Mapel Info */
+        .instructor-box {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
             gap: 12px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
         }
 
-        .info-item {
+        .badge-info {
+            background: #f1f5f9;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #475569;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
-        .info-label {
-            font-size: 0.8rem;
-            color: #64748b;
+        .badge-info strong {
+            color: var(--primary);
         }
 
-        .info-value {
-            font-weight: 600;
-            color: #1e293b;
-            background: white;
-            padding: 4px 12px;
-            border-radius: 40px;
-            font-size: 0.85rem;
+        .badge-mapel {
+            background: #e0e7ff;
+            color: var(--primary);
         }
 
-        .mapel-badge {
-            background: #fef3c7;
-            color: #d97706;
-        }
-
-        /* Form */
+        /* Form Controls */
         .form-group {
             margin-bottom: 24px;
         }
@@ -198,182 +111,169 @@
         label {
             display: block;
             font-size: 0.85rem;
-            font-weight: 600;
+            font-weight: 700;
             color: #334155;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        select, input {
+        input {
             width: 100%;
-            padding: 12px 14px;
-            border: 1.5px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            transition: all 0.2s;
-            outline: none;
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            font-size: 1rem;
             font-family: inherit;
-            background: white;
+            transition: all 0.3s ease;
+            color: var(--text-main);
         }
 
-        select:focus, input:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
         }
 
-        /* Button */
-        .button-group {
+        input[readonly] {
+            background-color: #f8fafc;
+            border-color: #f1f5f9;
+            color: #94a3b8;
+            cursor: not-allowed;
+            font-weight: 600;
+        }
+
+        input::placeholder {
+            color: #cbd5e1;
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 16px;
+            border-radius: 14px;
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .alert-success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .alert-error { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+
+        .error-msg {
+            color: var(--danger);
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+
+        /* Buttons */
+        .action-area {
             display: flex;
-            gap: 12px;
-            margin-top: 28px;
+            gap: 16px;
+            margin-top: 40px;
         }
 
-        .btn-primary {
-            background: #3b82f6;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: 0.2s;
-            font-size: 0.9rem;
-            border: none;
-            cursor: pointer;
+        .btn {
             flex: 1;
-        }
-
-        .btn-primary:hover {
-            background: #2563eb;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 12px rgba(59, 130, 246, 0.3);
-        }
-
-        .btn-secondary {
-            background: #f1f5f9;
-            color: #475569;
-            padding: 12px 24px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: 0.2s;
-            font-size: 0.9rem;
-            border: 1px solid #e2e8f0;
+            padding: 14px;
+            border-radius: 14px;
+            font-size: 0.95rem;
+            font-weight: 700;
             cursor: pointer;
+            transition: all 0.3s ease;
             text-align: center;
-            flex: 1;
+            text-decoration: none;
+            font-family: inherit;
         }
 
-        .btn-secondary:hover {
-            background: #e2e8f0;
+        .btn-save {
+            background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
         }
 
-        /* Alert */
-        .alert-success {
-            background: #dcfce7;
-            color: #166534;
-            padding: 14px 18px;
-            border-radius: 10px;
-            margin-bottom: 24px;
-            border-left: 4px solid #22c55e;
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(79, 70, 229, 0.3);
+            filter: brightness(1.1);
         }
 
-        .alert-error {
-            background: #fee2e2;
-            color: #991b1b;
-            padding: 14px 18px;
-            border-radius: 10px;
-            margin-bottom: 24px;
-            border-left: 4px solid #ef4444;
+        .btn-cancel {
+            background: white;
+            color: var(--secondary);
+            border: 2px solid #e2e8f0;
         }
 
-        .error-text {
-            color: #dc2626;
-            font-size: 0.75rem;
-            margin-top: 5px;
+        .btn-cancel:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            color: var(--text-main);
         }
 
-        /* Responsif */
         @media (max-width: 640px) {
-            .navbar {
-                padding: 0 20px;
-                flex-wrap: wrap;
-                height: auto;
-                padding: 12px 20px;
-                gap: 10px;
-            }
-            .nav-left {
-                flex-wrap: wrap;
-                gap: 16px;
-            }
-            .container {
-                padding: 0 16px;
-                margin: 24px auto;
-            }
-            .card {
-                padding: 24px 20px;
-            }
-            .button-group {
-                flex-direction: column;
-            }
+            .card { padding: 30px 20px; }
+            .action-area { flex-direction: column-reverse; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">    
-
+<div class="container">
     <div class="card">
         <h2>Input Nilai Siswa</h2>
-        <div class="subtitle">
-            Masukkan nilai untuk mata pelajaran yang Anda ajar
-        </div>
+        <p class="subtitle">Silakan masukkan nilai kompetensi untuk siswa berikut.</p>
 
         @if(session('success'))
-            <div class="alert-success">
-                {{ session('success') }}
+            <div class="alert alert-success">
+                ✅ {{ session('success') }}
             </div>
         @endif
 
         @if(session('error'))
-            <div class="alert-error">
-                {{ session('error') }}
+            <div class="alert alert-error">
+                ⚠️ {{ session('error') }}
             </div>
         @endif
 
-        <!-- Info Guru -->
-        <div class="info-guru">
-            <div class="info-item">
-                <span class="info-label">Guru:</span>
-                <span class="info-value">{{ auth()->user()->name }}</span>
+        <div class="instructor-box">
+            <div class="badge-info">
+                <span>Guru:</span> <strong>{{ auth()->user()->name }}</strong>
             </div>
-            <div class="info-item">
-                <span class="info-label">Mata Pelajaran:</span>
-                <span class="info-value mapel-badge">
-                    {{ auth()->user()->guru->mapel->nama_mapel ?? '-' }}
-                </span>
+            <div class="badge-info badge-mapel">
+                <span>Mapel:</span> <strong>{{ auth()->user()->guru->mapel->nama_mapel ?? '-' }}</strong>
             </div>
         </div>
 
         <form method="POST" action="{{ route('guru.nilai') }}">
             @csrf
             
-             <input type="hidden" name="id_siswa" value="{{ $siswa->id }}">
+            <input type="hidden" name="id_siswa" value="{{ $siswa->id }}">
 
-            <div>
+            <div class="form-group">
                 <label>Nama Siswa</label>
                 <input type="text" value="{{ $siswa->nama_siswa }}" readonly>
             </div>
 
             <div class="form-group">
-                <label>Nilai (0 - 100)</label>
-                <input type="number" name="nilai" min="0" max="100" step="0.01" value="{{ old('nilai') }}" required placeholder="Masukkan nilai siswa">
+                <label for="nilai">Nilai Akhir (0 - 100)</label>
+                <input type="number" 
+                       id="nilai"
+                       name="nilai" 
+                       min="0" 
+                       max="100" 
+                       step="0.01" 
+                       value="{{ old('nilai') }}" 
+                       required 
+                       placeholder="Contoh: 85.5">
                 @error('nilai')
-                    <div class="error-text">{{ $message }}</div>
+                    <div class="error-msg">{{ $message }}</div>
                 @enderror
             </div>
 
-            <div class="button-group">
-                <a href="{{ route('guru.kelas.lihat', $siswa->id_kelas) }}" class="btn-secondary">Kembali</a>
-                <button type="submit" class="btn-primary">Simpan Nilai</button>
+            <div class="action-area">
+                <a href="{{ route('guru.kelas.lihat', $siswa->id_kelas) }}" class="btn btn-cancel">Batal</a>
+                <button type="submit" class="btn btn-save">Simpan Perubahan</button>
             </div>
         </form>
     </div>
