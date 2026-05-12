@@ -233,7 +233,7 @@ class GuruController extends Controller
     $guru->nip = $request->nip;
     $guru->alamat = $request->alamat;
     $guru->no_hp = $request->no_hp;
-    $guru->update();
+    $guru->save();
 
     return redirect()->route('guru.profile')
             ->with('success', 'Profile berhasil diupdate');

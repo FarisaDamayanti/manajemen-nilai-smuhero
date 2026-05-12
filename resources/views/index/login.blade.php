@@ -131,10 +131,13 @@ margin-bottom: 20px; /* Jarak ke titik-titik di bawah */
                 @csrf
 
                 <div class="form-group">
-                    <input type="email" name="email"
-                        class="{{ $errors->has('email') ? 'is-invalid' : '' }}"
+                   <input type="email"
+                        name="email"
+                        autocomplete="off"
+                        autocorrect="off"
+                        spellcheck="false"
                         placeholder="Masukkan Email"
-                        value="{{ old('email') }}" required>
+                        required>
 
                     @if($errors->has('email'))
                         <span class="error-message show">{{ $errors->first('email') }}</span>
@@ -142,9 +145,11 @@ margin-bottom: 20px; /* Jarak ke titik-titik di bawah */
                 </div>
 
                 <div class="form-group">
-                    <input type="password" name="password"
-                        class="{{ $errors->has('password') ? 'is-invalid' : '' }}"
-                        placeholder="Masukkan Kata Sandi" required>
+                    <input type="password"
+                        name="password"
+                        autocomplete="new-password"
+                        placeholder="Masukkan Kata Sandi"
+                        required>
 
                     @if($errors->has('password'))
                         <span class="error-message show">{{ $errors->first('password') }}</span>

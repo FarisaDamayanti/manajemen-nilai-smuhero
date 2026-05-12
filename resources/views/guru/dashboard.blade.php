@@ -8,141 +8,155 @@
 
     <style>
         :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --secondary: #64748b;
-            --accent: #f59e0b;
-            --success: #10b981;
-            --danger: #ef4444;
-            --bg-body: #f8fafc;
-            --card-bg: rgba(255, 255, 255, 0.9);
-            --text-main: #1e293b;
-            --shadow-sm: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-            --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-        }
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --secondary: #94a3b8;
+    --accent: #f59e0b;
+    --success: #10b981;
+    --danger: #ef4444;
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    --bg-body: linear-gradient(135deg, #dbeafe 0%, #c7d2fe 50%, #e0e7ff 100%);
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-body);
-            background-image: radial-gradient(at 0% 0%, rgba(79, 70, 229, 0.05) 0px, transparent 50%), 
-                              radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.05) 0px, transparent 50%);
-            color: var(--text-main);
-            line-height: 1.6;
-            min-height: 100vh;
-        }
+    --glass-border: rgba(255,255,255,0.3);
 
-        /* Navbar Modern */
-        .navbar {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 0 40px;
-            height: 80px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: var(--shadow-sm);
-        }
+    --shadow-sm: 0 4px 12px rgba(0,0,0,0.08);
+    --shadow-md: 0 10px 25px rgba(79,70,229,0.15);
 
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-        }
+    --text-main: #1e293b;
+}
 
-        .brand-logo {
-            font-size: 28px;
-            background: white;
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-            box-shadow: var(--shadow-sm);
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        .brand-name {
-            font-size: 1.4rem;
-            font-weight: 800;
-            background: linear-gradient(to right, var(--primary), #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
-        }
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--bg-body);
+    color: var(--text-main);
+    line-height: 1.6;
+    min-height: 100vh;
+}
 
-        .nav-links {
-            display: flex;
-            gap: 32px;
-            margin-left: 50px;
-        }
+/* NAVBAR */
+.navbar {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 0 40px;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+}
 
-        .nav-links a {
-            text-decoration: none;
-            color: var(--secondary);
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: 0.3s;
-            position: relative;
-        }
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
 
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--primary);
-        }
+.brand-logo {
+    font-size: 28px;
+    background: rgb(5, 6, 15);
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+}
 
-        .nav-links a.active::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--primary);
-            border-radius: 10px;
-        }
+.brand-name {
+    font-size: 1.4rem;
+    font-weight: 800;
+    background: linear-gradient(to right, var(--primary), #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
-        .user-section {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
+.nav-links {
+    display: flex;
+    gap: 32px;
+    margin-left: 50px;
+}
 
-        .logout-btn {
-            background: #fee2e2;
-            color: #ef4444;
-            padding: 8px 18px;
-            border-radius: 10px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+.nav-links a {
+    text-decoration: none;
+    color: var(--secondary);
+    font-weight: 600;
+    transition: 0.3s;
+}
 
-        .logout-btn:hover {
-            background: #ef4444;
-            color: white;
-            transform: scale(1.05);
-        }
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--primary);
+}
 
-        /* Container & Cards */
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 24px;
-        }
+.nav-links a.active::after {
+    content: '';
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: var(--primary);
+    margin-top: 6px;
+    border-radius: 10px;
+}
 
-        /* Update Layout Welcome agar Split */
+/* USER */
+.user-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.user-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.user-role {
+    font-size: 0.75rem;
+    color: var(--secondary);
+}
+
+.profile-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid transparent;
+    transition: 0.3s;
+}
+
+.profile-avatar:hover {
+    border-color: var(--primary);
+    transform: scale(1.05);
+}
+
+/* CONTAINER */
+.container {
+    width: 100%;
+    max-width: none;
+    margin: 40px 0;
+    padding: 0 60px;
+}
+
+/* WELCOME */
 .welcome-section {
     display: flex;
     gap: 24px;
@@ -150,40 +164,39 @@
 }
 
 .welcome-card {
-    flex: 2; /* Bagian teks lebih lebar */
-    background: linear-gradient(135deg, var(--primary-hover) 0%, #8b5cf6 100%);
+    flex: 2;
+    background: linear-gradient(135deg, rgba(79,70,229,0.85), rgba(139,92,246,0.85));
+    backdrop-filter: blur(18px);
     color: white;
     padding: 40px;
-    border-radius: 30px; /* Lebih bulat biar gemes */
+    border-radius: 30px;
     position: relative;
     overflow: hidden;
-    margin-bottom: 0; /* Margin pindah ke container section */
     display: flex;
     flex-direction: column;
     justify-content: center;
+    box-shadow: var(--shadow-md);
 }
 
-/* Widget Kalender */
+/* CALENDAR */
 .mini-calendar {
-    flex: 1; /* Bagian kalender lebih ramping */
-    background: white;
+    flex: 1;
+    background: rgba(255,255,255,0.35);
+    backdrop-filter: blur(14px);
     border-radius: 30px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--glass-border);
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    box-shadow: var(--shadow-sm);
 }
 
 .cal-header {
-    background: var(--text-main); /* Hitam tegas */
+    background: #1e293b;
     color: white;
     padding: 15px;
     text-align: center;
     font-weight: 800;
     font-size: 0.8rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
 }
 
 .cal-body {
@@ -199,234 +212,94 @@
     font-size: 1rem;
     font-weight: 600;
     color: var(--secondary);
-    margin-bottom: 5px;
 }
 
 .cal-date {
     font-size: 3.5rem;
     font-weight: 800;
-    line-height: 1;
-    color: var(--primary); /* Warna senada dashboard */
-    letter-spacing: -2px;
+    color: var(--primary);
 }
 
 .cal-month {
-    margin-top: 5px;
     font-weight: 700;
-    color: var(--text-main);
-    background: var(--soft-blue);
-    padding: 4px 12px;
-    border-radius: 10px;
-    font-size: 0.9rem;
+    margin-top: 5px;
 }
 
-/* Responsif untuk HP */
+/* STATS */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+.stat-item {
+    background: rgba(255,255,255,0.35);
+    backdrop-filter: blur(14px);
+    padding: 24px;
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-sm);
+    transition: 0.3s;
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+/* KELAS */
+.kelas-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.kelas-card {
+    background: rgba(255,255,255,0.3);
+    backdrop-filter: blur(14px);
+    border-radius: 24px;
+    padding: 28px;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-sm);
+    transition: 0.3s;
+}
+
+.kelas-card:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-md);
+}
+
+/* BUTTON */
+.btn-action {
+    width: 100%;
+    background: white;
+    color: var(--primary);
+    padding: 12px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 700;
+    border: 1px solid var(--primary);
+    display: block;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-action:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* RESPONSIVE */
 @media (max-width: 768px) {
     .welcome-section {
         flex-direction: column;
     }
+
+    .nav-links {
+        display: none;
+    }
 }
-
-        .badge-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .badge {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            padding: 6px 16px;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .section-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-
-        .section-title h3 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            margin-bottom: 32px;
-        }
-
-        .stat-item {
-            background: white;
-            padding: 24px;
-            border-radius: 20px;
-            border: 1px solid #e2e8f0;
-            transition: 0.3s;
-            text-align: left;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-md);
-            border-color: var(--primary);
-        }
-
-        .stat-icon {
-            font-size: 1.5rem;
-            margin-bottom: 12px;
-            width: 50px;
-            height: 50px;
-            background: #f1f5f9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 14px;
-        }
-
-        .stat-val {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--text-main);
-        }
-
-        .stat-label {
-            color: var(--secondary);
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        /* Kelas Cards */
-        .kelas-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-        .kelas-card {
-            background: white;
-            border-radius: 20px;
-            padding: 28px;
-            border: 1px solid #e2e8f0;
-            transition: 0.3s ease;
-        }
-
-        .kelas-card:hover {
-            box-shadow: var(--shadow-md);
-            transform: scale(1.02);
-        }
-
-        .kelas-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 20px;
-        }
-
-        .kelas-name {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .progress-container {
-            margin: 20px 0;
-        }
-
-        .progress-label {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.85rem;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .progress-bar {
-            height: 10px;
-            background: #f1f5f9;
-            border-radius: 20px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(to right, var(--primary), #8b5cf6);
-            border-radius: 20px;
-            transition: width 1s ease-in-out;
-        }
-
-        .btn-action {
-            width: 100%;
-            background: var(--bg-body);
-            color: var(--primary);
-            padding: 12px;
-            border-radius: 12px;
-            text-decoration: none;
-            display: block;
-            text-align: center;
-            font-weight: 700;
-            font-size: 0.9rem;
-            border: 1px solid var(--primary);
-            transition: 0.3s;
-        }
-
-        .btn-action:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .profile-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: 0.3s;
-        }
-
-        .profile-avatar:hover {
-            border-color: var(--primary);
-            transform: scale(1.05);
-        }
-
-        .user-info {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.2;
-        }
-
-        /* nama */
-        .user-name {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        /* role */
-        .user-role {
-            font-size: 0.75rem;
-            color: var(--secondary);
-        }
-
-        /* Utilities */
-        .text-success { color: var(--success); }
-        .text-accent { color: var(--accent); }
-        .text-danger { color: var(--danger); }
-
-        @media (max-width: 768px) {
-            .navbar { padding: 0 20px; }
-            .nav-links { display: none; }
-            .welcome-card { padding: 25px; }
-        }
     </style>
 </head>
 <body>
@@ -444,6 +317,11 @@
     </div>
 
     <div class="user-section">
+    <div class="user-info">
+        <div class="user-name">{{ auth()->user()->name }}</div>
+        <div class="user-role">{{ auth()->user()->guru->mapel->nama_mapel }}</div>
+    </div>
+
     <a href="{{ route('guru.profile') }}">
         <img 
             src="{{ auth()->user()->guru && auth()->user()->guru->foto 
@@ -452,11 +330,6 @@
             alt="Profile"
             class="profile-avatar">
     </a>
-
-    <div class="user-info">
-        <div class="user-name">{{ auth()->user()->name }}</div>
-        <div class="user-role">{{ auth()->user()->guru->mapel->nama_mapel }}</div>
-    </div>
 </div>
 </nav>
 

@@ -21,13 +21,13 @@ class UserSeeder extends Seeder
             'role' => 'admin',
         ]);
 
-        // // GURU 1
-        // User::create([
-        //     'name' => 'Hilal Pratama',
-        //     'email' => 'hilal@gmail.com',
-        //     'password' => Hash::make('hilal'),
-        //     'role' => 'guru',
-        // ]);
+        // GURU 1
+        User::create([
+            'name' => 'Hilal Pratama',
+            'email' => 'hilal@gmail.com',
+            'password' => Hash::make('hilal'),
+            'role' => 'guru',
+        ]);
 
         // // GURU 2
         // User::create([

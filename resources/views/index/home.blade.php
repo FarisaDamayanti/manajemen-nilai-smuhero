@@ -338,7 +338,7 @@
                 <a href="{{ route('login') }}" class="btn-cta btn-main">
                     Mulai Sekarang
                 </a>
-                <a href="https://www.tiktok.com/@anak_baik.57/video/7631914623482072338?is_from_webapp=1&sender_device=pc" 
+                <a href="https://www.instagram.com/reel/DX1h2Hfzdd9/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     class="btn-cta btn-outline">

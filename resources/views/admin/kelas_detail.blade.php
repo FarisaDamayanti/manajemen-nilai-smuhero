@@ -254,7 +254,16 @@
         }
 
         .btn-add { background: var(--primary); color: white; }
-        .btn-success { background: var(--secondary); color: white; }
+        .btn-success {
+            background: var(--success);
+            color: white;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+        }
+
+        .btn-success:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
         .btn-back { background: #f1f5f9; color: var(--text-muted); }
 
         /* Table */
@@ -375,6 +384,8 @@
                 </form>
             </div>
 
+            
+
             @if($kelas->guru->count() > 0)
                 <div class="guru-grid">
                     @foreach($kelas->guru as $g)
@@ -395,7 +406,7 @@
         <div class="section">
             <div class="section-header">
                 <div class="section-title">Daftar Siswa</div>
-                <a href="{{ route('siswa.create', $kelas->id) }}" class="btn-action btn-success">+ Tambah Siswa</a>
+                <a href="{{ route('siswa.create', $kelas->id) }}" class="btn-action btn-success" >+ Tambah Siswa</a>
             </div>
 
             <div class="table-wrapper">
