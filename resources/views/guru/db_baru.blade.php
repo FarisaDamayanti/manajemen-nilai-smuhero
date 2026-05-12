@@ -8,272 +8,429 @@
 
     <style>
         :root {
-            --primary: #4f46e5;
-            --bg-body: #c7d2fe; /* Background gradasi biru seperti gambar */
-            --white: #ffffff;
-            --glass: rgba(255, 255, 255, 0.7);
-        }
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --secondary: #94a3b8;
+    --accent: #f59e0b;
+    --success: #10b981;
+    --danger: #ef4444;
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    --bg-body: linear-gradient(135deg, #dbeafe 0%, #c7d2fe 50%, #e0e7ff 100%);
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: linear-gradient(135deg, #a5b4fc 0%, #e0e7ff 100%);
-            min-height: 100vh;
-            color: #1e293b;
-            padding: 20px;
-        }
+    --glass-border: rgba(255,255,255,0.3);
 
-        /* MAIN WRAPPER (Gaya Glassmorphism Luar) */
-        .main-wrapper {
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-        }
+    --shadow-sm: 0 4px 12px rgba(0,0,0,0.08);
+    --shadow-md: 0 10px 25px rgba(79,70,229,0.15);
 
-        /* NAVBAR */
-        .navbar {
-            background: var(--glass);
-            border-radius: 15px;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-        }
+    --text-main: #1e293b;
+}
 
-        .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-        .brand-logo { font-size: 24px; color: #1e293b; }
-        .brand-name { font-size: 1.4rem; font-weight: 800; color: #1e293b; }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        .nav-links { display: flex; gap: 20px; }
-        .nav-links a { 
-            text-decoration: none; color: #64748b; font-weight: 600; 
-            padding: 8px 16px; border-radius: 10px; transition: 0.3s;
-        }
-        .nav-links a.active { background: #cbd5e1; color: var(--primary); }
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--bg-body);
+    color: var(--text-main);
+    line-height: 1.6;
+    min-height: 100vh;
+}
 
-        .user-profile { display: flex; align-items: center; gap: 12px; }
-        .user-avatar { width: 45px; height: 45px; border-radius: 50%; background: #fbbf24; border: 2px solid white; }
+/* NAVBAR */
+.navbar {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 0 40px;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+}
 
-        /* DASHBOARD GRID */
-        .dashboard-content {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 20px;
-        }
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
 
-        /* WELCOME CARD */
-        .welcome-card {
-            background: linear-gradient(135deg, #e0e7ff 0%, #ddd6fe 100%);
-            border-radius: 25px;
-            padding: 40px;
-            position: relative;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+.brand-logo {
+    font-size: 28px;
+    background: rgb(5, 6, 15);
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+}
 
-        .welcome-card h2 { font-size: 2.2rem; font-weight: 850; line-height: 1.2; margin-bottom: 15px; }
-        .welcome-card p { color: #475569; font-size: 1.1rem; max-width: 70%; }
-        
-        .mascot-img {
-            position: absolute;
-            right: 20px;
-            bottom: -10px;
-            width: 250px;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
-        }
+.brand-name {
+    font-size: 1.4rem;
+    font-weight: 800;
+    background: linear-gradient(to right, var(--primary), #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
-        .hore-label {
-            background: rgba(255,255,255,0.5);
-            padding: 15px 25px;
-            border-radius: 15px;
-            margin-top: 30px;
-            font-weight: 800;
-            font-size: 1.2rem;
-            display: inline-block;
-            width: fit-content;
-        }
+.nav-links {
+    display: flex;
+    gap: 32px;
+    margin-left: 50px;
+}
 
-        /* MINI CALENDAR */
-        .calendar-card {
-            background: var(--glass);
-            border-radius: 25px;
-            padding: 20px;
-        }
+.nav-links a {
+    text-decoration: none;
+    color: var(--secondary);
+    font-weight: 600;
+    transition: 0.3s;
+}
 
-        .cal-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
-        .cal-title { font-weight: 800; font-size: 1.1rem; }
-        
-        /* Simullasi Kalender Bulanan di Gambar */
-        .cal-table { width: 100%; border-collapse: collapse; text-align: center; font-size: 0.8rem; }
-        .cal-table th { padding: 5px; color: #64748b; }
-        .cal-table td { padding: 8px; font-weight: 600; }
-        .today { background: var(--primary); color: white; border-radius: 50%; width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; }
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--primary);
+}
 
-        /* STATS GRID */
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin-top: 20px;
-        }
+.nav-links a.active::after {
+    content: '';
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: var(--primary);
+    margin-top: 6px;
+    border-radius: 10px;
+}
 
-        .stat-box {
-            padding: 20px;
-            border-radius: 18px;
-            text-align: left;
-            position: relative;
-        }
-        .stat-box.green { background: #4ade80; }
-        .stat-box.red { background: #f87171; }
-        .stat-box.yellow { background: #facc15; }
-        .stat-box.light-yellow { background: #fef08a; }
+/* USER */
+.user-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
 
-        .stat-num { font-size: 1.8rem; font-weight: 800; display: block; }
-        .stat-label { font-size: 0.75rem; font-weight: 600; opacity: 0.8; }
+.user-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
 
-        /* KELAS ANDA AJAR */
-        .kelas-section {
-            background: var(--glass);
-            border-radius: 25px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-        .kelas-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-top: 15px;
-        }
-        .kelas-item {
-            background: white;
-            padding: 15px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .circle-progress {
-            width: 40px; height: 40px; border-radius: 50%;
-            border: 4px solid #e2e8f0; border-top-color: var(--primary);
-            display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700;
-        }
-        .btn-mini {
-            background: #f1f5f9; border: none; padding: 5px 10px; 
-            border-radius: 8px; font-size: 0.7rem; font-weight: 700; cursor: pointer;
-        }
+.user-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.user-role {
+    font-size: 0.75rem;
+    color: var(--secondary);
+}
+
+.profile-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid transparent;
+    transition: 0.3s;
+}
+
+.profile-avatar:hover {
+    border-color: var(--primary);
+    transform: scale(1.05);
+}
+
+/* CONTAINER */
+.container {
+    width: 100%;
+    max-width: none;
+    margin: 40px 0;
+    padding: 0 60px;
+}
+
+/* WELCOME */
+.welcome-section {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.welcome-card {
+    flex: 2;
+    background: linear-gradient(135deg, rgba(79,70,229,0.85), rgba(139,92,246,0.85));
+    backdrop-filter: blur(18px);
+    color: white;
+    padding: 40px;
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: var(--shadow-md);
+}
+
+/* CALENDAR */
+.mini-calendar {
+    flex: 1;
+    background: rgba(255,255,255,0.35);
+    backdrop-filter: blur(14px);
+    border-radius: 30px;
+    border: 1px solid var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.cal-header {
+    background: #1e293b;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-weight: 800;
+    font-size: 0.8rem;
+}
+
+.cal-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.cal-day {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--secondary);
+}
+
+.cal-date {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.cal-month {
+    font-weight: 700;
+    margin-top: 5px;
+}
+
+/* STATS */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+.stat-item {
+    background: rgba(255,255,255,0.35);
+    backdrop-filter: blur(14px);
+    padding: 24px;
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-sm);
+    transition: 0.3s;
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+/* KELAS */
+.kelas-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.kelas-card {
+    background: rgba(255,255,255,0.3);
+    backdrop-filter: blur(14px);
+    border-radius: 24px;
+    padding: 28px;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-sm);
+    transition: 0.3s;
+}
+
+.kelas-card:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-md);
+}
+
+/* BUTTON */
+.btn-action {
+    width: 100%;
+    background: white;
+    color: var(--primary);
+    padding: 12px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 700;
+    border: 1px solid var(--primary);
+    display: block;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-action:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .welcome-section {
+        flex-direction: column;
+    }
+
+    .nav-links {
+        display: none;
+    }
+}
     </style>
 </head>
 <body>
 
-<div class="main-wrapper">
-    <nav class="navbar">
+<nav class="navbar">
+    <div style="display: flex; align-items: center;">
         <a href="#" class="brand">
             <div class="brand-logo">🎓</div>
             <div class="brand-name">EduPoint</div>
         </a>
         <div class="nav-links">
-            <a href="#" class="active">📊 Dashboard</a>
-            <a href="#">👥 Manajemen Kelas</a>
-        </div>
-        <div class="user-profile">
-            <div style="text-align: right">
-                <span style="font-weight: 800; font-size: 0.9rem; display: block;">Budi Santoso, S.Pd.</span>
-                <span style="font-size: 0.7rem; color: #64748b;">Matematika</span>
-            </div>
-            <div class="user-avatar"></div>
-        </div>
-    </nav>
-
-    <p style="font-weight: 800; margin-bottom: 15px; padding-left: 10px;">Welcome Section</p>
-
-    <div class="dashboard-content">
-        <div class="welcome-card">
-            <div class="welcome-text">
-                <h2>Selamat Datang,<br>Budi Santoso, S.Pd.! 👋</h2>
-                <p>Semangat mengajar hari ini! Ada beberapa nilai siswa yang perlu divalidasi.</p>
-            </div>
-            
-            <div class="hore-label">
-                HOREEE! Waktunya Mengajar! 🦉📚
-            </div>
-
-            <img src="https://img.freepik.com/free-vector/cute-owl-teacher-cartoon-character_1308-161614.寬" class="mascot-img" alt="Owl Mascot">
-            <div class="mascot-img" style="font-size: 150px; right: 40px; bottom: 20px; position: absolute;">🦉</div>
-        </div>
-
-        <div class="right-col">
-            <div class="calendar-card">
-                <div class="cal-top">
-                    <span class="cal-title">Mini-Calendar</span>
-                    <span style="font-size: 1.5rem;">🌙⭐</span>
-                </div>
-                <p style="font-size: 0.7rem; color: #64748b; margin-bottom: 10px;">👋 Menagur kamentian serangjar!</p>
-                
-                <table class="cal-table">
-                    <tr><th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th></tr>
-                    <tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
-                    <tr><td>8</td><td>9</td><td>10</td><td>11</td><td class="today">{{ date('d') }}</td><td>13</td><td>14</td></tr>
-                    <tr><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td></tr>
-                    </table>
-            </div>
-
-            <p style="font-weight: 800; margin: 20px 0 10px;">Stats Grid</p>
-            <div class="stats-container">
-                <div class="stat-box green">
-                    <span class="stat-num">16</span>
-                    <span class="stat-label">Total Kelas</span>
-                </div>
-                <div class="stat-box red">
-                    <span class="stat-num">115</span>
-                    <span class="stat-label">Total Siswa</span>
-                </div>
-                <div class="stat-box yellow">
-                    <span class="stat-num">8.00</span>
-                    <span class="stat-label">Rata-rata Nilai</span>
-                </div>
-                <div class="stat-box light-yellow">
-                    <span class="stat-num">0</span>
-                    <span class="stat-label">Belum Dinilai</span>
-                </div>
-            </div>
+            <a href="{{ route('guru.dashboard') }}" class="active">Dashboard</a>
+            <a href="{{ route('guru.kelas') }}">Manajemen Kelas</a>
         </div>
     </div>
 
-    <div class="kelas-section">
-        <p style="font-weight: 800; margin-bottom: 15px;">Kelas yang Anda Ajar</p>
-        <div class="kelas-grid">
-            <div class="kelas-item">
-                <div class="circle-progress">100</div>
-                <div>
-                    <p style="font-size: 0.7rem; font-weight: 800;">Kelas X IPA 1</p>
-                    <button class="btn-mini">Kelola Nilai</button>
-                </div>
-            </div>
-            <div class="kelas-item">
-                <div class="circle-progress" style="border-top-color: #f87171;">50</div>
-                <div>
-                    <p style="font-size: 0.7rem; font-weight: 800;">Kelas XI IPS 2</p>
-                    <button class="btn-mini">Kelola Nilai</button>
-                </div>
-            </div>
-            <div class="kelas-item">
-                <div class="circle-progress">100</div>
-                <div>
-                    <p style="font-size: 0.7rem; font-weight: 800;">Kelas XII IPA 1</p>
-                    <button class="btn-mini">Kelola Nilai</button>
-                </div>
-            </div>
+    <div class="user-section">
+    <div class="user-info">
+        <div class="user-name">{{ auth()->user()->name }}</div>
+        <div class="user-role">{{ auth()->user()->guru->mapel->nama_mapel }}</div>
+    </div>
+
+    <a href="{{ route('guru.profile') }}">
+        <img 
+            src="{{ auth()->user()->guru && auth()->user()->guru->foto 
+                ? asset('storage/'.auth()->user()->guru->foto) 
+                : 'https://ui-avatars.com/api/?name='.urlencode(auth()->user()->name) }}" 
+            alt="Profile"
+            class="profile-avatar">
+    </a>
+</div>
+</nav>
+
+<div class="container">
+    <div class="welcome-section">
+    <div class="welcome-card">
+        <div style="z-index: 2; position: relative;">
+            <span style="background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 10px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.5px;">
+                DASHBOARD GURU
+            </span>
+            <h2 style="margin-top: 15px;">Selamat Datang, {{auth()->user()->name}}! 👋</h2>
+            <p style="opacity: 0.9; max-width: 400px;">
+                Semangat mengajar hari ini! Ada beberapa nilai siswa yang perlu divalidasi.
+            </p>
         </div>
+        <div style="position: absolute; top: -20px; right: -20px; width: 150px; height: 150px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
+    </div>
+
+    <div class="mini-calendar">
+        <div class="cal-header">
+            Jadwal Mengajar
+        </div>
+        <div class="cal-body">
+            <div class="cal-day">{{ date('l') == 'Monday' ? 'Senin' : (date('l') == 'Tuesday' ? 'Selasa' : (date('l') == 'Wednesday' ? 'Rabu' : (date('l') == 'Thursday' ? 'Kamis' : (date('l') == 'Friday' ? 'Jumat' : (date('l') == 'Saturday' ? 'Sabtu' : 'Minggu'))))) }}</div>
+            <div class="cal-date">{{ date('d') }}</div>
+            <div class="cal-month">{{ date('F Y') }}</div>
+        </div>
+    </div>
+</div>
+
+    <div class="section-title">
+        <h3><span style="font-size: 1.5rem;">📊</span> Ringkasan Performa</h3>
+    </div>
+    
+    <div class="stats-grid">
+        <div class="stat-item">
+            <div class="stat-icon">🏫</div>
+            <div class="stat-val">{{ $kelas->count() ?? 0 }}</div>
+            <div class="stat-label">Total Kelas</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon">👨‍🎓</div>
+            <div class="stat-val">{{ $totalSiswa ?? 0 }}</div>
+            <div class="stat-label">Total Siswa</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon">📈</div>
+            <div class="stat-val text-success">{{ number_format($rataRataKeseluruhan ?? 0, 1) }}</div>
+            <div class="stat-label">Rata-rata Nilai</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon">⚠️</div>
+            <div class="stat-val text-danger">{{ ($totalSiswa ?? 0) - ($nilaiMasuk ?? 0) }}</div>
+            <div class="stat-label">Belum Dinilai</div>
+        </div>
+    </div>
+
+    <div class="section-title">
+        <h3><span style="font-size: 1.5rem;">🏫</span> Kelas yang Anda Ajar</h3>
+        <a href="{{ route('guru.kelas') }}" style="color: var(--primary); font-weight: 700; text-decoration: none; font-size: 0.9rem;">Lihat Semua →</a>
+    </div>
+
+    <div class="kelas-container">
+        @forelse($kelas->take(3) as $k)
+            @php
+                $totalSiswaKelas = $k->siswa->count();
+                $nilaiMasukKelas = $k->siswa->filter(function($s) use ($nilai) {
+                    return isset($nilai[$s->id]) && !is_null($nilai[$s->id]->nilai);
+                })->count();
+                $persentase = $totalSiswaKelas > 0 ? ($nilaiMasukKelas / $totalSiswaKelas) * 100 : 0;
+            @endphp
+            <div class="kelas-card">
+                <div class="kelas-header">
+                    <div class="kelas-name">{{ $k->nama_kelas }}</div>
+                    <div style="background: #e0e7ff; color: #4338ca; padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700;">
+                        AKTIF
+                    </div>
+                </div>
+                
+                <div style="font-size: 0.9rem; color: var(--secondary);">
+                    Siswa: <strong>{{ $totalSiswaKelas }}</strong> terdaftar
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Progress Penilaian</span>
+                        <span>{{ number_format($persentase, 0) }}%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: {{ $persentase }}%;"></div>
+                    </div>
+                </div>
+
+                <a href="{{ route('guru.kelas.lihat', $k->id) }}" class="btn-action">Kelola Nilai</a>
+            </div>
+        @empty
+            <div style="grid-column: 1/-1; text-align: center; padding: 50px; background: white; border-radius: 20px; border: 2px dashed #e2e8f0; color: #94a3b8;">
+                <div style="font-size: 3rem; margin-bottom: 10px;">📭</div>
+                <p>Belum ada jadwal kelas untuk Anda.</p>
+            </div>
+        @endforelse
     </div>
 </div>
 
